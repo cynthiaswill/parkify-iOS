@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "parkify",
+    "slug": "parkify",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "parkify"
+}
