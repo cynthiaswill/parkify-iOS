@@ -21,7 +21,7 @@ const Stack = createNativeStackNavigator();
 
 export const Login = ({ navigation }) => {
   const LoginForm = () => {
-    const { user, setUser } = useContext(UserContext);
+    const { setUser } = useContext(UserContext);
     const [formData, setFormdata] = useState({
       username: "",
       password: "",
@@ -36,7 +36,6 @@ export const Login = ({ navigation }) => {
       });
     };
 
-    // handle login
     const handleLogin = async () => {
       try {
         const res = await loginUser(formData);
@@ -49,7 +48,6 @@ export const Login = ({ navigation }) => {
         navigation.navigate("Home");
       } catch (err) {
         setError(err.response.data.message);
-        // clear form
         setFormdata({
           username: "",
           password: "",
