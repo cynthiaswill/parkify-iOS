@@ -163,6 +163,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   error: {
-    color: "red",
+    color: "darkred",
   },
 });

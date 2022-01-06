@@ -1,5 +1,4 @@
 import React, { useState, useContext } from "react";
-import { useFocusEffect } from "@react-navigation/native";
 import {
   View,
   Text,
@@ -8,7 +7,6 @@ import {
   Image,
   Pressable,
   Dimensions,
-  ImageBackground,
 } from "react-native";
 import { postNewUser } from "../utils/nh-api";
 import { UserContext } from "../contexts/user-context";
@@ -92,52 +90,31 @@ export const SignUp = ({ navigation }) => {
       !newUser.dateOfBirth
     ) {
       setError("Please fill out all fields.");
-      return;
-    }
-
-    // check if password is at least 8 characters
-    if (newUser.password.length < 8) {
+    } else if (newUser.password.length < 8) {
       setError("Password must be at least 8 characters.");
-      return;
-    }
-
-    // check if email is valid
-    if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newUser.email)) {
+    } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newUser.email)) {
       setError("Please enter a valid email.");
-      return;
-    }
-
-    // check if date of birth is valid
-    if (
+    } else if (
       !/^\d{4}-\d{2}-\d{2}$/.test(newUser.dateOfBirth) ||
       newUser.dateOfBirth > new Date().toISOString().substring(0, 10)
     ) {
       setError("Please enter a valid date of birth.");
-      return;
-    }
-
-    postNewUser(newUser)
-      .then((res) => {
-        const { User, token } = res.data;
-        setUser({
-          ...User,
-          token: token,
+    } else {
+      postNewUser(newUser)
+        .then((res) => {
+          const { User, token } = res.data;
+          setUser({
+            ...User,
+            token: token,
+          });
+          console.log(user);
+          navigation.navigate("User Page");
+        })
+        .catch((err) => {
+          setError(err.response.data.message);
         });
-        console.log(user);
-        navigation.navigate("User Page");
-      })
-      .catch((err) => {
-        setError(err.response.data.message);
-      });
+    }
   };
-
-  useFocusEffect(
-    React.useCallback(() => {
-      return () => {
-        navigation.popToTop();
-      };
-    }, [])
-  );
 
   return (
     <View style={styles.wholePage}>
@@ -200,35 +177,25 @@ export const SignUp = ({ navigation }) => {
           onChangeText={(text) => handleFormChanges(text, "dateOfBirth")}
           placeholder="Date of birth: (YYYY-MM-DD)"
         />
-        {error && <Text style={styles.error}>{error}</Text>}
+        {error && (
+          <View style={{ marginBottom: 20 }}>
+            <Text style={styles.error}>{error}</Text>
+          </View>
+        )}
       </View>
-      <View style={styles.buttons}>
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-          {photo && (
-            <>
-              <Image source={{ uri: photo.uri }} style={{ width: 100, height: 100 }} />
-              <Pressable style={styles.button} onPress={handleUploadPhoto}>
-                <Text style={styles.buttonText}>Upload Avatar</Text>
-              </Pressable>
-            </>
-          )}
-          <Pressable style={styles.button} onPress={handleChoosePhoto}>
-            <Text style={styles.buttonText}>Choose Avatar</Text>
-          </Pressable>
-        </View>
-        <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-          {photo && (
-            <>
-              <Image source={{ uri: photo.uri }} style={{ width: 150, height: 150 }} />
-              <Pressable style={styles.button} onPress={handleUploadPhoto}>
-                <Text style={styles.buttonText}>Upload Profile Picture</Text>
-              </Pressable>
-            </>
-          )}
-          <Pressable style={styles.button} onPress={handleSubmit}>
-            <Text style={styles.buttonText}>Submit</Text>
-          </Pressable>
-        </View>
+
+      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+        {photo && (
+          <>
+            <Image source={{ uri: photo.uri }} style={{ width: 150, height: 150 }} />
+            <Pressable style={styles.button} onPress={handleUploadPhoto}>
+              <Text style={styles.buttonText}>Upload Profile Picture</Text>
+            </Pressable>
+          </>
+        )}
+        <Pressable style={styles.button} onPress={handleSubmit}>
+          <Text style={styles.buttonText}>Submit</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -314,6 +281,5 @@ const styles = StyleSheet.create({
   },
   error: {
     color: "red",
-    fontSize: 18,
   },
 });
