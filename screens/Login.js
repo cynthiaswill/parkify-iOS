@@ -11,7 +11,7 @@ import {
   Dimensions,
 } from "react-native";
 import { SignUp } from "./SignUp";
-import { loginUser } from "../utils/nh-api";
+import { loginUser } from "../utils/frosty-api";
 import { UserContext } from "../contexts/user-context";
 
 const windowWidth = Dimensions.get("window").width;
