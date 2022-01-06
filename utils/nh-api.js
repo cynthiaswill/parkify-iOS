@@ -1,5 +1,4 @@
 import axios from "axios";
-import { Pressable } from "react-native";
 const frostyApi = axios.create({
   baseURL: "https://frosty-api2.herokuapp.com/api",
 });
