@@ -17,6 +17,6 @@ export default [
   },
   {
     name: "Login",
-    iconName: "cog",
+    iconName: "sign-in-alt",
   },
 ];
