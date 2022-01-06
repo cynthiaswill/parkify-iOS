@@ -25,10 +25,10 @@ export default function App() {
             <Drawer.Navigator
               drawerType="front"
               initialRouteName="Login"
-              drawerContentOptions={{
-                activeTintColor: "#C37B89",
-                itemStyle: { marginVertical: 10 },
-              }}
+              // drawerContentOptions={{
+              //   activeTintColor: "#C37B89",
+              //   itemStyle: { marginVertical: 10 },
+              // }}
             >
               {DrawerItems.map((drawer) => (
                 <Drawer.Screen
