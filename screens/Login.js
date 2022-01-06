@@ -1,11 +1,11 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState, useContext, useEffect } from "react";
+import React, { useState, useContext } from "react";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
-  Button,
   Pressable,
   Image,
   Dimensions,
@@ -42,7 +42,6 @@ export const Login = ({ navigation }) => {
         const res = await loginUser(formData);
         const resUser = res.data.response.user;
         const resToken = res.data.response.token;
-
         setUser({
           ...resUser,
           token: resToken,
@@ -63,33 +62,33 @@ export const Login = ({ navigation }) => {
           <View style={styles.logoContainer}>
             <Image style={styles.logo} source={require("../logo.jpg")} />
           </View>
-          <View style={styles.formContainer}>
-            <TextInput
-              style={styles.input}
-              value={formData.username}
-              onChangeText={(text) => handleInputs(text, "username")}
-              placeholder="Username:"
-            />
-
-            <TextInput
-              style={styles.input}
-              value={formData.password}
-              onChangeText={(text) => handleInputs(text, "password")}
-              placeholder="Password:"
-              secureTextEntry={true}
-            />
-            {error && <Text style={styles.error}>{error}</Text>}
-            <Pressable style={styles.button} onPress={handleLogin}>
-              <Text style={styles.buttonText}>Login</Text>
-            </Pressable>
-
-            <Pressable
-              style={styles.button}
-              onPress={() => navigation.navigate("SignUp")}
-            >
-              <Text style={styles.buttonText}>Sign up</Text>
-            </Pressable>
-          </View>
+          <KeyboardAwareScrollView style={{ flex: 1, marginBottom: 50 }}>
+            <View style={styles.formContainer}>
+              <TextInput
+                style={styles.input}
+                value={formData.username}
+                onChangeText={(text) => handleInputs(text, "username")}
+                placeholder="Username:"
+              />
+              <TextInput
+                style={styles.input}
+                value={formData.password}
+                onChangeText={(text) => handleInputs(text, "password")}
+                placeholder="Password:"
+                secureTextEntry={true}
+              />
+              {error && <Text style={styles.error}>{error}</Text>}
+              <Pressable style={styles.button} onPress={handleLogin}>
+                <Text style={styles.buttonText}>Login</Text>
+              </Pressable>
+              <Pressable
+                style={styles.button}
+                onPress={() => navigation.navigate("SignUp")}
+              >
+                <Text style={styles.buttonText}>Sign up</Text>
+              </Pressable>
+            </View>
+          </KeyboardAwareScrollView>
         </View>
       </View>
     );
