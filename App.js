@@ -1,8 +1,5 @@
-import React, { useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
 import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Login } from "./screens/Login";
 import { Home } from "./screens/Home";
 import DrawerItems from "./constants/DrawerItems";
@@ -22,14 +19,7 @@ export default function App() {
       <EventProvider>
         <ViewedUserProvider>
           <NavigationContainer>
-            <Drawer.Navigator
-              drawerType="front"
-              initialRouteName="Login"
-              // drawerContentOptions={{
-              //   activeTintColor: "#C37B89",
-              //   itemStyle: { marginVertical: 10 },
-              // }}
-            >
+            <Drawer.Navigator drawerType="front" initialRouteName="Login">
               {DrawerItems.map((drawer) => (
                 <Drawer.Screen
                   key={drawer.name}
