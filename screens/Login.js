@@ -1,5 +1,5 @@
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import React, { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import {
   View,
@@ -28,6 +28,7 @@ export const Login = ({ navigation }) => {
     });
 
     const [error, setError] = useState(null);
+    useEffect(() => {}, [error]);
 
     const handleInputs = (text, keyToChange) => {
       setFormdata((prev) => {
