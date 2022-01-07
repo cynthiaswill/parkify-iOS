@@ -11,6 +11,7 @@ import {
 import { postNewUser } from "../utils/nh-api";
 import { UserContext } from "../contexts/user-context";
 import { MaterialIcons } from "@expo/vector-icons";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -135,73 +136,78 @@ export const SignUp = ({ navigation }) => {
         </Pressable>
       </View>
       <View style={styles.formContainer}>
-        <Image style={styles.image} source={require("../logo.jpg")} />
+        <KeyboardAwareScrollView style={styles.wholeScroll}>
+          <Image style={styles.image} source={require("../logo.jpg")} />
 
-        <TextInput
-          style={styles.input}
-          value={newUser.username}
-          onChangeText={(text) => {
-            handleFormChanges(text, "username");
-          }}
-          placeholder="Username:"
-        />
+          <TextInput
+            style={styles.input}
+            value={newUser.username}
+            onChangeText={(text) => {
+              handleFormChanges(text, "username");
+            }}
+            placeholder="Username:"
+          />
 
-        <TextInput
-          style={styles.input}
-          value={newUser.password}
-          onChangeText={(text) => {
-            handleFormChanges(text, "password");
-          }}
-          placeholder="Password:"
-          secureTextEntry={true}
-        />
+          <TextInput
+            style={styles.input}
+            value={newUser.password}
+            onChangeText={(text) => {
+              handleFormChanges(text, "password");
+            }}
+            placeholder="Password:"
+            secureTextEntry={true}
+          />
 
-        <TextInput
-          style={styles.input}
-          value={newUser.displayName}
-          onChangeText={(text) => handleFormChanges(text, "displayName")}
-          placeholder="Display Name:"
-        />
+          <TextInput
+            style={styles.input}
+            value={newUser.displayName}
+            onChangeText={(text) => handleFormChanges(text, "displayName")}
+            placeholder="Display Name:"
+          />
 
-        <TextInput
-          style={styles.input}
-          value={newUser.pronouns}
-          onChangeText={(text) => handleFormChanges(text, "pronouns")}
-          placeholder="Pronouns:"
-        />
+          <TextInput
+            style={styles.input}
+            value={newUser.pronouns}
+            onChangeText={(text) => handleFormChanges(text, "pronouns")}
+            placeholder="Pronouns:"
+          />
 
-        <TextInput
-          style={styles.input}
-          value={newUser.email}
-          onChangeText={(text) => handleFormChanges(text, "email")}
-          placeholder="email:"
-        />
+          <TextInput
+            style={styles.input}
+            value={newUser.email}
+            onChangeText={(text) => handleFormChanges(text, "email")}
+            placeholder="email:"
+          />
 
-        <TextInput
-          style={styles.input}
-          value={newUser.dateOfBirth}
-          onChangeText={(text) => handleFormChanges(text, "dateOfBirth")}
-          placeholder="Date of birth: (YYYY-MM-DD)"
-        />
-        {error && (
-          <View style={{ marginBottom: 20 }}>
-            <Text style={styles.error}>{error}</Text>
-          </View>
-        )}
-      </View>
-
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-        {photo && (
-          <>
-            <Image source={{ uri: photo.uri }} style={{ width: 150, height: 150 }} />
-            <Pressable style={styles.button} onPress={handleUploadPhoto}>
-              <Text style={styles.buttonText}>Upload Profile Picture</Text>
+          <TextInput
+            style={styles.input}
+            value={newUser.dateOfBirth}
+            onChangeText={(text) => handleFormChanges(text, "dateOfBirth")}
+            placeholder="Date of birth: (YYYY-MM-DD)"
+          />
+          {error && (
+            <View style={{ marginBottom: 20 }}>
+              <Text style={styles.error}>{error}</Text>
+            </View>
+          )}
+          <View
+            style={{
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              height: Number(parseInt(windowHeight) - 600),
+            }}
+          >
+            {photo && (
+              <Pressable style={styles.button} onPress={handleUploadPhoto}>
+                <Text style={styles.buttonText}>Upload Profile Picture</Text>
+              </Pressable>
+            )}
+            <Pressable style={styles.button} onPress={handleSubmit}>
+              <Text style={styles.buttonText}>Submit</Text>
             </Pressable>
-          </>
-        )}
-        <Pressable style={styles.button} onPress={handleSubmit}>
-          <Text style={styles.buttonText}>Submit</Text>
-        </Pressable>
+          </View>
+        </KeyboardAwareScrollView>
       </View>
     </View>
   );
@@ -210,7 +216,7 @@ export const SignUp = ({ navigation }) => {
 const styles = StyleSheet.create({
   wholePage: {
     width: windowWidth,
-    height: Number(parseInt(windowHeight) - 50),
+    height: Number(parseInt(windowHeight) - 60),
     backgroundColor: "lightgrey",
   },
   title: {
@@ -234,7 +240,7 @@ const styles = StyleSheet.create({
   },
   input: {
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 5,
     marginLeft: 30,
     marginRight: 30,
     borderWidth: 1,
@@ -247,8 +253,11 @@ const styles = StyleSheet.create({
   },
 
   formContainer: {
+    flexDirection: "column",
     flex: 1,
     alignItems: "center",
+    justifyContent: "flex-start",
+    height: Number(parseInt(windowHeight) - 110),
   },
 
   pageContainer: {
@@ -265,7 +274,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     backgroundColor: "#8E806A",
     elevation: 3,
-    marginVertical: 10,
+    marginVertical: 20,
     width: 150,
   },
 
@@ -279,6 +288,7 @@ const styles = StyleSheet.create({
     height: 160,
     borderRadius: 80,
     margin: 20,
+    alignSelf: "center",
   },
   arrow: {
     fontSize: 30,
@@ -288,5 +298,10 @@ const styles = StyleSheet.create({
   },
   error: {
     color: "red",
+  },
+  wholeScroll: {
+    flex: 1,
+    marginBottom: 135,
+    overflow: "visible",
   },
 });
