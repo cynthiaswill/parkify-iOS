@@ -5,11 +5,11 @@ import {
   Text,
   StyleSheet,
   TextInput,
-  Picker,
   Pressable,
   Image,
   Dimensions,
 } from "react-native";
+import { Picker } from "@react-native-picker/picker";
 import MapView from "react-native-maps";
 import MapMarkers from "../constants/MapMarkers.js";
 
@@ -424,6 +424,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     overflow: "hidden",
     marginBottom: 10,
+    alignSelf: "center",
   },
 
   error: {
