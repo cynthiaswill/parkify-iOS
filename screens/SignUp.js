@@ -154,7 +154,7 @@ export const SignUp = ({ navigation }) => {
         </Pressable>
       </View>
       <View style={styles.formContainer}>
-        <KeyboardAwareScrollView extraScrollHeight={320} style={styles.wholeScroll}>
+        <KeyboardAwareScrollView extraScrollHeight={225} style={styles.wholeScroll}>
           <Image style={styles.image} source={require("../logo.jpg")} />
           <View style={{ alignSelf: "center" }}>
             <TextInput
