@@ -7,12 +7,14 @@ import {
   Image,
   Pressable,
   Dimensions,
+  Platform,
 } from "react-native";
 import { postNewUser } from "../utils/nh-api";
 import { UserContext } from "../contexts/user-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import DateTimePicker from "@react-native-community/datetimepicker";
+import TextField from "@material-ui/core/TextField";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -183,20 +185,33 @@ export const SignUp = ({ navigation }) => {
               placeholder="email:"
             />
           </View>
-
-          <View style={styles.datePickerContainer}>
-            <View style={styles.DOB}>
-              <Text style={{ fontSize: 14, alignSelf: "center" }}>Date of Birth</Text>
+          {Platform.OS === "ios" ? (
+            <View style={styles.datePickerContainer}>
+              <View style={styles.DOB}>
+                <Text style={{ fontSize: 14, alignSelf: "center" }}>Date of Birth</Text>
+              </View>
+              <DateTimePicker
+                value={date}
+                mode={"date"}
+                display={"default"}
+                is24Hour={true}
+                onChange={onDateChange}
+                style={styles.datePicker}
+              />
             </View>
-            <DateTimePicker
-              value={date}
-              mode={"date"}
-              display={"default"}
-              is24Hour={true}
-              onChange={onDateChange}
-              style={styles.datePicker}
-            />
-          </View>
+          ) : (
+            <View style={{ alignSelf: "center", marginTop: 10 }}>
+              <TextField
+                id="date"
+                label="Choose your Birthdate"
+                type="date"
+                defaultValue="2000-01-01"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+              />
+            </View>
+          )}
 
           {error && (
             <View style={{ marginBottom: 10, alignSelf: "center" }}>
