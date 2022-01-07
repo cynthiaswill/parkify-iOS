@@ -12,6 +12,7 @@ import { postNewUser } from "../utils/nh-api";
 import { UserContext } from "../contexts/user-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
+import DateTimePicker from "@react-native-community/datetimepicker";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -28,6 +29,8 @@ export const SignUp = ({ navigation }) => {
     email: "",
     dateOfBirth: "",
   });
+  const [isPickerShow, setIsPickerShow] = useState(false);
+  const [date, setDate] = useState(new Date("2000-01-01T00:00:00"));
 
   // const SERVER_URL = "http://localhost:3000";
 
@@ -118,6 +121,21 @@ export const SignUp = ({ navigation }) => {
     }
   };
 
+  const handleDatePicker = () => {
+    if (isPickerShow) {
+      setIsPickerShow(false);
+    } else {
+      setIsPickerShow(true);
+    }
+  };
+
+  const onChange = (event, value) => {
+    setDate(value);
+    if (Platform.OS === "android") {
+      setIsPickerShow(false);
+    }
+  };
+
   return (
     <View style={styles.wholePage}>
       <View style={styles.backContainer}>
@@ -138,53 +156,67 @@ export const SignUp = ({ navigation }) => {
       <View style={styles.formContainer}>
         <KeyboardAwareScrollView extraScrollHeight={210} style={styles.wholeScroll}>
           <Image style={styles.image} source={require("../logo.jpg")} />
+          <View style={{ alignSelf: "center" }}>
+            <TextInput
+              style={styles.input}
+              value={newUser.username}
+              onChangeText={(text) => {
+                handleFormChanges(text, "username");
+              }}
+              placeholder="Username:"
+            />
 
-          <TextInput
-            style={styles.input}
-            value={newUser.username}
-            onChangeText={(text) => {
-              handleFormChanges(text, "username");
-            }}
-            placeholder="Username:"
-          />
+            <TextInput
+              style={styles.input}
+              value={newUser.password}
+              onChangeText={(text) => {
+                handleFormChanges(text, "password");
+              }}
+              placeholder="Password:"
+              secureTextEntry={true}
+            />
 
-          <TextInput
-            style={styles.input}
-            value={newUser.password}
-            onChangeText={(text) => {
-              handleFormChanges(text, "password");
-            }}
-            placeholder="Password:"
-            secureTextEntry={true}
-          />
+            <TextInput
+              style={styles.input}
+              value={newUser.displayName}
+              onChangeText={(text) => handleFormChanges(text, "displayName")}
+              placeholder="Display Name:"
+            />
 
-          <TextInput
-            style={styles.input}
-            value={newUser.displayName}
-            onChangeText={(text) => handleFormChanges(text, "displayName")}
-            placeholder="Display Name:"
-          />
+            <TextInput
+              style={styles.input}
+              value={newUser.pronouns}
+              onChangeText={(text) => handleFormChanges(text, "pronouns")}
+              placeholder="Pronouns:"
+            />
 
-          <TextInput
-            style={styles.input}
-            value={newUser.pronouns}
-            onChangeText={(text) => handleFormChanges(text, "pronouns")}
-            placeholder="Pronouns:"
-          />
+            <TextInput
+              style={styles.input}
+              value={newUser.email}
+              onChangeText={(text) => handleFormChanges(text, "email")}
+              placeholder="email:"
+            />
+          </View>
 
-          <TextInput
-            style={styles.input}
-            value={newUser.email}
-            onChangeText={(text) => handleFormChanges(text, "email")}
-            placeholder="email:"
-          />
+          <View style={styles.container}>
+            <Pressable style={styles.pickedDateContainer} onPress={handleDatePicker}>
+              <Text style={styles.pickedDate}>
+                Date of birth: {date.toISOString().slice(0, 10)}
+              </Text>
+            </Pressable>
 
-          <TextInput
-            style={styles.input}
-            value={newUser.dateOfBirth}
-            onChangeText={(text) => handleFormChanges(text, "dateOfBirth")}
-            placeholder="Date of birth: (YYYY-MM-DD)"
-          />
+            {isPickerShow && (
+              <DateTimePicker
+                value={date}
+                mode={"date"}
+                display={Platform.OS === "ios" ? "spinner" : "default"}
+                is24Hour={true}
+                onChange={onChange}
+                style={styles.datePicker}
+              />
+            )}
+          </View>
+
           {error && (
             <View style={{ marginBottom: 20 }}>
               <Text style={styles.error}>{error}</Text>
@@ -243,8 +275,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
     marginLeft: 30,
     marginRight: 30,
-    borderWidth: 1,
-    borderColor: "#8E806A",
     padding: 3,
     fontSize: 18,
     borderRadius: 4,
@@ -301,5 +331,32 @@ const styles = StyleSheet.create({
   },
   wholeScroll: {
     flex: 1,
+  },
+
+  container: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    flex: 1,
+    justifyContent: "center",
+    padding: 10,
+  },
+  pickedDateContainer: {
+    padding: 5,
+    backgroundColor: "#eee",
+    borderRadius: 5,
+    marginTop: 5,
+  },
+  pickedDate: {
+    fontSize: 16,
+    color: "black",
+  },
+  // This only works on iOS
+  datePicker: {
+    width: 320,
+    height: 150,
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "flex-start",
   },
 });
