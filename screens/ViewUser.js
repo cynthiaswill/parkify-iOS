@@ -43,11 +43,8 @@ export const ViewUser = () => {
           return navigation.navigate("ViewEvent");
         }}
       >
-        <Text style={{ margin: 10, fontWeight: "bold" }}>
+        <Text style={{ marginVertical: 10, marginHorizontal: 15, fontWeight: "bold" }}>
           <MaterialIcons name="arrow-back-ios" size={28} color="black" />
-          <View>
-            <Text style={{ fontSize: 18 }}>Back</Text>
-          </View>
         </Text>
       </Pressable>
       <View style={styles.pageContainer}>

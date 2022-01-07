@@ -134,11 +134,8 @@ export const SignUp = ({ navigation }) => {
             return navigation.navigate("LoginForm");
           }}
         >
-          <Text style={{ margin: 10, fontWeight: "bold" }}>
+          <Text style={{ marginVertical: 10, marginHorizontal: 15, fontWeight: "bold" }}>
             <MaterialIcons name="arrow-back-ios" size={30} color="black" />
-            <View>
-              <Text style={{ fontSize: 18 }}>Back</Text>
-            </View>
           </Text>
         </Pressable>
       </View>
