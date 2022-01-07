@@ -58,7 +58,7 @@ export const Login = ({ navigation }) => {
     return (
       <View style={styles.pageContainer}>
         <View style={styles.wholePage}>
-          <KeyboardAwareScrollView style={styles.wholeScroll}>
+          <KeyboardAwareScrollView extraScrollHeight={150} style={styles.wholeScroll}>
             <View style={styles.insideContainer}>
               <View style={styles.logoContainer}>
                 <Image style={styles.logo} source={require("../logo.jpg")} />
@@ -123,12 +123,9 @@ const styles = StyleSheet.create({
   },
   wholeScroll: {
     flex: 1,
-    marginBottom: 140,
-    overflow: "visible",
   },
   insideContainer: {
-    height: Number(parseInt(windowHeight) - 60),
-    flex: 1,
+    height: Number(parseInt(windowHeight) - 65),
     alignSelf: "center",
     flexDirection: "column",
     justifyContent: "center",
@@ -153,7 +150,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 30,
     marginRight: 30,
-    borderWidth: 1,
     borderColor: "#8E806A",
     padding: 3,
     fontSize: 18,

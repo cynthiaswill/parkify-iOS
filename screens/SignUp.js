@@ -136,7 +136,7 @@ export const SignUp = ({ navigation }) => {
         </Pressable>
       </View>
       <View style={styles.formContainer}>
-        <KeyboardAwareScrollView style={styles.wholeScroll}>
+        <KeyboardAwareScrollView extraScrollHeight={210} style={styles.wholeScroll}>
           <Image style={styles.image} source={require("../logo.jpg")} />
 
           <TextInput
@@ -301,7 +301,5 @@ const styles = StyleSheet.create({
   },
   wholeScroll: {
     flex: 1,
-    marginBottom: 135,
-    overflow: "visible",
   },
 });
