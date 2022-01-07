@@ -10,6 +10,7 @@ import {
 } from "react-native";
 import { postNewUser } from "../utils/nh-api";
 import { UserContext } from "../contexts/user-context";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -125,7 +126,12 @@ export const SignUp = ({ navigation }) => {
             return navigation.navigate("LoginForm");
           }}
         >
-          <Text style={styles.arrow}>⇠</Text>
+          <Text style={{ margin: 10, fontWeight: "bold" }}>
+            <MaterialIcons name="arrow-back-ios" size={30} color="black" />
+            <View>
+              <Text style={{ fontSize: 18 }}>Back</Text>
+            </View>
+          </Text>
         </Pressable>
       </View>
       <View style={styles.formContainer}>
@@ -237,6 +243,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 4,
     backgroundColor: "white",
+    width: 200,
   },
 
   formContainer: {
@@ -277,7 +284,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     fontWeight: "bold",
     color: "#4A403A",
-    margin: 20,
+    marginLeft: 20,
   },
   error: {
     color: "red",
