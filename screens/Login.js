@@ -58,34 +58,39 @@ export const Login = ({ navigation }) => {
     return (
       <View style={styles.pageContainer}>
         <View style={styles.wholePage}>
-          <View style={styles.logoContainer}>
-            <Image style={styles.logo} source={require("../logo.jpg")} />
-          </View>
-          <KeyboardAwareScrollView style={{ flex: 1, marginBottom: 50 }}>
-            <View style={styles.formContainer}>
-              <TextInput
-                style={styles.input}
-                value={formData.username}
-                onChangeText={(text) => handleInputs(text, "username")}
-                placeholder="Username:"
-              />
-              <TextInput
-                style={styles.input}
-                value={formData.password}
-                onChangeText={(text) => handleInputs(text, "password")}
-                placeholder="Password:"
-                secureTextEntry={true}
-              />
-              {error && <Text style={styles.error}>{error}</Text>}
-              <Pressable style={styles.button} onPress={handleLogin}>
-                <Text style={styles.buttonText}>Login</Text>
-              </Pressable>
-              <Pressable
-                style={styles.button}
-                onPress={() => navigation.navigate("SignUp")}
-              >
-                <Text style={styles.buttonText}>Sign up</Text>
-              </Pressable>
+          <KeyboardAwareScrollView style={styles.wholeScroll}>
+            <View style={styles.insideContainer}>
+              <View style={styles.logoContainer}>
+                <Image style={styles.logo} source={require("../logo.jpg")} />
+              </View>
+
+              <View style={styles.formContainer}>
+                <TextInput
+                  style={styles.input}
+                  value={formData.username}
+                  onChangeText={(text) => handleInputs(text, "username")}
+                  placeholder="Username:"
+                />
+                <TextInput
+                  style={styles.input}
+                  value={formData.password}
+                  onChangeText={(text) => handleInputs(text, "password")}
+                  placeholder="Password:"
+                  secureTextEntry={true}
+                />
+                {error && <Text style={styles.error}>{error}</Text>}
+                <View style={styles.buttonContainer}>
+                  <Pressable style={styles.button} onPress={handleLogin}>
+                    <Text style={styles.buttonText}>Login</Text>
+                  </Pressable>
+                  <Pressable
+                    style={styles.button}
+                    onPress={() => navigation.navigate("SignUp")}
+                  >
+                    <Text style={styles.buttonText}>Sign up</Text>
+                  </Pressable>
+                </View>
+              </View>
             </View>
           </KeyboardAwareScrollView>
         </View>
@@ -106,21 +111,42 @@ export const Login = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
+  pageContainer: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+  },
   wholePage: {
     width: windowWidth,
     height: Number(parseInt(windowHeight) - 50),
     backgroundColor: "lightgrey",
+  },
+  wholeScroll: {
+    flex: 1,
+    marginBottom: 140,
+    overflow: "visible",
+  },
+  insideContainer: {
+    height: Number(parseInt(windowHeight) - 50),
+    flex: 1,
+    alignSelf: "center",
+    flexDirection: "column",
+    justifyContent: "center",
+  },
+  logoContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  formContainer: {
+    flex: 1,
+    alignItems: "center",
   },
   logo: {
     height: 200,
     width: 200,
     borderRadius: 100,
     alignSelf: "center",
-  },
-  logoContainer: {
-    flex: 1,
-    flexDirection: "row",
-    justifyContent: "center",
   },
   input: {
     marginTop: 10,
@@ -133,19 +159,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 4,
     backgroundColor: "white",
+    width: 200,
   },
-
-  formContainer: {
-    flex: 1,
-    alignItems: "center",
+  buttonContainer: {
+    marginTop: 15,
   },
-
-  pageContainer: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-  },
-
   button: {
     alignItems: "center",
     justifyContent: "center",
@@ -157,12 +175,12 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     width: 150,
   },
-
   buttonText: {
     color: "white",
     fontSize: 18,
   },
   error: {
     color: "darkred",
+    margin: 5,
   },
 });
