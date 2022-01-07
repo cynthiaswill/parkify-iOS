@@ -185,7 +185,7 @@ export const SignUp = ({ navigation }) => {
               placeholder="email:"
             />
           </View>
-          {Platform.OS === "ios" ? (
+          {Platform.OS === "ios" || Platform.OS === "android" ? (
             <View style={styles.datePickerContainer}>
               <View style={styles.DOB}>
                 <Text style={{ fontSize: 14, alignSelf: "center" }}>Date of Birth</Text>
