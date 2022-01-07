@@ -121,19 +121,8 @@ export const SignUp = ({ navigation }) => {
     }
   };
 
-  const handleDatePicker = () => {
-    if (isPickerShow) {
-      setIsPickerShow(false);
-    } else {
-      setIsPickerShow(true);
-    }
-  };
-
-  const onChange = (event, value) => {
+  const onDateChange = (event, value) => {
     setDate(value);
-    if (Platform.OS === "android") {
-      setIsPickerShow(false);
-    }
   };
 
   return (
@@ -198,23 +187,18 @@ export const SignUp = ({ navigation }) => {
             />
           </View>
 
-          <View style={styles.container}>
-            <Pressable style={styles.pickedDateContainer} onPress={handleDatePicker}>
-              <Text style={styles.pickedDate}>
-                Date of birth: {date.toISOString().slice(0, 10)}
-              </Text>
-            </Pressable>
-
-            {isPickerShow && (
-              <DateTimePicker
-                value={date}
-                mode={"date"}
-                display={Platform.OS === "ios" ? "spinner" : "default"}
-                is24Hour={true}
-                onChange={onChange}
-                style={styles.datePicker}
-              />
-            )}
+          <View style={styles.datePickerContainer}>
+            <View style={styles.DOB}>
+              <Text style={{ fontSize: 14, alignSelf: "center" }}>Date of Birth</Text>
+            </View>
+            <DateTimePicker
+              value={date}
+              mode={"date"}
+              display={"default"}
+              is24Hour={true}
+              onChange={onDateChange}
+              style={styles.datePicker}
+            />
           </View>
 
           {error && (
@@ -333,30 +317,27 @@ const styles = StyleSheet.create({
     flex: 1,
   },
 
-  container: {
+  datePickerContainer: {
     display: "flex",
-    flexDirection: "column",
+    flexDirection: "row",
     alignItems: "center",
-    flex: 1,
     justifyContent: "center",
-    padding: 10,
-  },
-  pickedDateContainer: {
-    padding: 5,
-    backgroundColor: "#eee",
+    marginVertical: 10,
     borderRadius: 5,
-    marginTop: 5,
+    paddingHorizontal: 5,
+    alignSelf: "center",
+    backgroundColor: "white",
+    width: 220,
   },
-  pickedDate: {
-    fontSize: 16,
-    color: "black",
+  DOB: {
+    flex: 4,
+    width: 100,
   },
   // This only works on iOS
   datePicker: {
-    width: 320,
-    height: 150,
-    display: "flex",
+    flexDirection: "row",
     justifyContent: "center",
-    alignItems: "flex-start",
+    flex: 5,
+    alignSelf: "flex-start",
   },
 });
