@@ -218,7 +218,7 @@ export const SignUp = ({ navigation }) => {
           </View>
 
           {error && (
-            <View style={{ marginBottom: 20 }}>
+            <View style={{ marginBottom: 10, alignSelf: "center" }}>
               <Text style={styles.error}>{error}</Text>
             </View>
           )}
@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     marginLeft: 20,
   },
   error: {
-    color: "red",
+    color: "darkred",
   },
   wholeScroll: {
     flex: 1,
