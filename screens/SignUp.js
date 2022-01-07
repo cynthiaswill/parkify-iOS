@@ -188,7 +188,7 @@ export const SignUp = ({ navigation }) => {
           {Platform.OS === "ios" || Platform.OS === "android" ? (
             <View style={styles.datePickerContainer}>
               <View style={styles.DOB}>
-                <Text style={{ fontSize: 14, alignSelf: "center" }}>Date of Birth</Text>
+                <Text style={{ fontSize: 15, alignSelf: "center" }}>Date of Birth</Text>
               </View>
               <DateTimePicker
                 value={date}
@@ -351,5 +351,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 5,
     alignSelf: "flex-start",
+    backgroundColor: "lightgrey",
+    borderRadius: 5,
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "grey",
+    marginVertical: 2,
   },
 });
