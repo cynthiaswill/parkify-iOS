@@ -24,6 +24,7 @@ import { deleteEvent } from "../utils/YizApi.js";
 import { getUser } from "../utils/nh-api.js";
 import MapView from "react-native-maps";
 import { joinEvent, leaveEvent } from "../utils/YizApi";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -82,7 +83,12 @@ export const ViewEvent = () => {
               return navigation.navigate("MeetsPage");
             }}
           >
-            <Text style={styles.arrow}>⇠</Text>
+            <Text style={{ marginVertical: 5, fontWeight: "bold" }}>
+              <MaterialIcons name="arrow-back-ios" size={28} color="black" />
+              <View>
+                <Text style={{ fontSize: 18 }}>Back</Text>
+              </View>
+            </Text>
           </Pressable>
         </View>
         <View style={styles.topContainer}>

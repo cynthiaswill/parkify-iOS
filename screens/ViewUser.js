@@ -14,6 +14,7 @@ import { ViewedUserContext } from "../contexts/viewed-user-context.js";
 import { UserContext } from "../contexts/user-context.js";
 import { getUser } from "../utils/nh-api.js";
 import EventCardUserPage from "../components/EventCardUserPage";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -42,7 +43,12 @@ export const ViewUser = () => {
           return navigation.navigate("ViewEvent");
         }}
       >
-        <Text style={styles.arrow}>⇠</Text>
+        <Text style={{ margin: 10, fontWeight: "bold" }}>
+          <MaterialIcons name="arrow-back-ios" size={28} color="black" />
+          <View>
+            <Text style={{ fontSize: 18 }}>Back</Text>
+          </View>
+        </Text>
       </Pressable>
       <View style={styles.pageContainer}>
         <View style={styles.firstRowContainer}>
