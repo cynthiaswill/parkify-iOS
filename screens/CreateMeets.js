@@ -16,11 +16,13 @@ import Categories from "../constants/Categories.js";
 import { postEvent } from "../utils/nh-api.js";
 import { UserContext } from "../contexts/user-context.js";
 import { EventContext } from "../contexts/event-context.js";
+import Container from "../components/Container";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export const CreateMeets = () => {
+  console.log(Container);
   const { user } = useContext(UserContext);
   const { event, setEvent } = useContext(EventContext);
   const [open, setOpen] = useState(false);
@@ -141,16 +143,28 @@ export const CreateMeets = () => {
             </Picker>
           </View>
         </View>
-        <View style={styles.formRow2}>
-          <TextInput
-            style={styles.inputDescription}
-            value={formResult.description}
-            onChangeText={(text) => handleFormInput(text, "description")}
-            placeholder="Please give a description ..."
-            multiline={true}
-            numberOfLines={4}
-          />
-        </View>
+        {Platform.OS === "ios" || Platform.OS === "android" ? (
+          <View style={styles.inputDescription}>
+            <Container.OutlinedTextField
+              value={formResult.description}
+              onChangeText={(text) => handleFormInput(text, "description")}
+              label="Please give a description ..."
+            />
+          </View>
+        ) : (
+          <View style={{ alignSelf: "center", marginTop: 10 }}>
+            <Container.TextField
+              id="date"
+              label="Choose your Birthdate"
+              type="date"
+              defaultValue="2000-01-01"
+              InputLabelProps={{
+                shrink: true,
+              }}
+            />
+          </View>
+        )}
+
         <View style={styles.formRow3}>
           <Text style={styles.row3Labels}>Start:</Text>
           <Text style={styles.row3Labels}>End:</Text>
@@ -299,12 +313,9 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     marginLeft: 40,
     marginRight: 40,
-    flex: 1,
     padding: 1,
     fontSize: 18,
     borderRadius: 5,
-    alignSelf: "stretch",
-    backgroundColor: "white",
   },
   formContainer: {
     flexDirection: "column",
@@ -332,10 +343,10 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 100,
   },
-  formRow2: {
-    flexDirection: "row",
-    justifyContent: "center",
-  },
+  // formRow2: {
+  //   flexDirection: "row",
+  //   justifyContent: "center",
+  // },
   pickerStyle: {
     height: 100,
     width: 150,
