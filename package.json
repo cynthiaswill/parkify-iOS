@@ -42,6 +42,7 @@
     "react-native-ui-xg": "^0.0.6",
     "react-native-web": "0.17.1",
     "react-native-web-maps": "^0.3.0",
+    "rn-material-ui-textfield": "^1.0.5",
     "socket.io": "^2.0.4",
     "socket.io-client": "^2.1.1"
   },
