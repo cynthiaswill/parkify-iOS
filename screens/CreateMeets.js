@@ -22,7 +22,6 @@ const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export const CreateMeets = () => {
-  console.log(Container);
   const { user } = useContext(UserContext);
   const { event, setEvent } = useContext(EventContext);
   const [open, setOpen] = useState(false);
@@ -108,13 +107,23 @@ export const CreateMeets = () => {
             }}
           >
             <TextInput
-              style={Platform.OS === "ios" ? styles.iosInput : styles.webInput}
+              style={
+                Platform.OS === "ios" || Platform.OS === "android"
+                  ? styles.iosInput
+                  : styles.webInput
+              }
               value={formResult.title}
               onChangeText={(text) => handleFormInput(text, "title")}
               placeholder="Title:"
             />
           </View>
-          <View style={Platform.OS === "ios" ? styles.iosPicker : styles.webPicker}>
+          <View
+            style={
+              Platform.OS === "ios" || Platform.OS === "android"
+                ? styles.iosPicker
+                : styles.webPicker
+            }
+          >
             <Picker
               style={styles.pickerStyle}
               itemStyle={{
@@ -152,15 +161,11 @@ export const CreateMeets = () => {
             />
           </View>
         ) : (
-          <View style={{ alignSelf: "center", marginTop: 10 }}>
+          <View style={styles.inputDescription}>
             <Container.TextField
-              id="date"
-              label="Choose your Birthdate"
-              type="date"
-              defaultValue="2000-01-01"
-              InputLabelProps={{
-                shrink: true,
-              }}
+              value={formResult.description}
+              onChangeText={(text) => handleFormInput(text, "description")}
+              label="Please give a description ..."
             />
           </View>
         )}
@@ -341,7 +346,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignSelf: "center",
-    height: 100,
+    height: Platform.OS === "ios" || Platform.OS === "android" ? 100 : 30,
+    marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 5 : 30,
   },
   // formRow2: {
   //   flexDirection: "row",
