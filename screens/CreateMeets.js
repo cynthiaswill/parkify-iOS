@@ -155,17 +155,17 @@ export const CreateMeets = () => {
         {Platform.OS === "ios" || Platform.OS === "android" ? (
           <View style={styles.inputDescription}>
             <Container.OutlinedTextField
-              value={formResult.description}
               onChangeText={(text) => handleFormInput(text, "description")}
               label="Please give a description ..."
+              multiline={true}
             />
           </View>
         ) : (
           <View style={styles.inputDescription}>
             <Container.TextField
-              value={formResult.description}
               onChangeText={(text) => handleFormInput(text, "description")}
               label="Please give a description ..."
+              multiline={true}
             />
           </View>
         )}
