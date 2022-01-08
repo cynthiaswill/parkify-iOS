@@ -1,18 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import React, { useContext, useState } from "react";
+import { useNavigation } from "@react-navigation/native";
 import {
   View,
   Text,
   StyleSheet,
   TextInput,
   Pressable,
-  Image,
   Dimensions,
+  Platform,
 } from "react-native";
 import { Picker } from "@react-native-picker/picker";
 import MapView from "react-native-maps";
 import MapMarkers from "../constants/MapMarkers.js";
-
 import Categories from "../constants/Categories.js";
 import { postEvent } from "../utils/nh-api.js";
 import { UserContext } from "../contexts/user-context.js";
@@ -40,20 +39,11 @@ export const CreateMeets = () => {
   });
   const [markerClicked, setMarkerClicked] = useState(false);
   const [error, setError] = useState(null);
-  // const [chosenDate, setChosenDate] = useState(new Date());
-
   const [startDate, setStartDate] = useState("");
   const [startTime, setStartTime] = useState("");
   const [endDate, setEndDate] = useState("");
   const [endTime, setEndTime] = useState("");
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     return () => {
-  //       navigation.goBack();
-  //     };
-  //   }, [])
-  // );
   const handleFormInput = (text, keyToChange) => {
     setFormResult((prev) => {
       const newState = { ...prev };
@@ -103,39 +93,53 @@ export const CreateMeets = () => {
       });
   };
 
-  const uploadEventImage = () => {};
+  // const uploadEventImage = () => {};
 
   return (
-    <View style={{ backgroundColor: "lightgrey" }}>
-      <View style={styles.titleContainer}></View>
+    <View style={styles.wholePage}>
       <View style={styles.formContainer}>
         <View style={styles.formRow1}>
-          <TextInput
-            style={styles.input}
-            value={formResult.title}
-            onChangeText={(text) => handleFormInput(text, "title")}
-            placeholder="Title:"
-          />
-          <Picker
-            style={styles.pickerStyle}
-            selectedValue={categoryValue}
-            onValueChange={(itemValue, itemIndex) => handleCategoryPicker(itemValue)}
+          <View
+            style={{
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
           >
-            <Picker.Item
-              key="Pick a category:"
-              label="Pick a category:"
-              value="Pick a category:"
+            <TextInput
+              style={Platform.OS === "ios" ? styles.iosInput : styles.webInput}
+              value={formResult.title}
+              onChangeText={(text) => handleFormInput(text, "title")}
+              placeholder="Title:"
             />
-            {Categories.map((cat) => {
-              return (
-                <Picker.Item
-                  key={cat.category_name}
-                  label={cat.category_name}
-                  value={cat.category_name}
-                />
-              );
-            })}
-          </Picker>
+          </View>
+          <View style={Platform.OS === "ios" ? styles.iosPicker : styles.webPicker}>
+            <Picker
+              style={styles.pickerStyle}
+              itemStyle={{
+                height: 100,
+                width: 180,
+                fontSize: 15,
+                flex: 1,
+              }}
+              selectedValue={categoryValue}
+              onValueChange={(itemValue, itemIndex) => handleCategoryPicker(itemValue)}
+            >
+              <Picker.Item
+                key="Pick a category:"
+                label="Pick a category:"
+                value="Pick a category:"
+              />
+              {Categories.map((cat) => {
+                return (
+                  <Picker.Item
+                    key={cat.category_name}
+                    label={cat.category_name}
+                    value={cat.category_name}
+                  />
+                );
+              })}
+            </Picker>
+          </View>
         </View>
         <View style={styles.formRow2}>
           <TextInput
@@ -253,75 +257,59 @@ export const CreateMeets = () => {
 const styles = StyleSheet.create({
   wholePage: {
     width: windowWidth,
-    height: Number(parseInt(windowHeight) - 50),
+    height: Number(parseInt(windowHeight) - 60),
     backgroundColor: "lightgrey",
   },
-  title: {
-    marginTop: 16,
-    marginBottom: 20,
-    paddingVertical: 8,
-    borderWidth: 4,
-    borderColor: "#8E806A",
-    borderRadius: 5,
-    backgroundColor: "#61dafb",
-    color: "#8E806A",
-    textAlign: "center",
-    fontSize: 25,
-    fontWeight: "bold",
-  },
-  titleContainer: {
-    padding: 12,
-    justifyContent: "center",
-  },
-
   pageContainer: {
     flex: 1,
     backgroundColor: "#fff",
     alignItems: "center",
   },
-
   buttonContainer: {
     flex: 1,
     alignItems: "center",
     marginTop: 50,
     paddingTop: 10,
   },
-
-  input: {
+  webInput: {
     marginTop: 10,
     marginBottom: 10,
     marginRight: 5,
     maxWidth: 150,
-    borderWidth: 1,
-    borderColor: "#8E806A",
     padding: 1,
     fontSize: 18,
     borderRadius: 5,
     backgroundColor: "white",
+    width: 150,
   },
-
+  iosInput: {
+    marginTop: 10,
+    marginBottom: 10,
+    marginRight: 5,
+    maxWidth: 150,
+    padding: 1,
+    height: 35,
+    fontSize: 18,
+    borderRadius: 5,
+    backgroundColor: "white",
+    width: 175,
+  },
   inputDescription: {
     marginTop: 10,
     marginBottom: 10,
     marginLeft: 40,
     marginRight: 40,
     flex: 1,
-    borderWidth: 1,
-    borderColor: "#8E806A",
     padding: 1,
     fontSize: 18,
     borderRadius: 5,
     alignSelf: "stretch",
     backgroundColor: "white",
   },
-
   formContainer: {
-    flex: 1,
-    alignItems: "stretch",
+    flexDirection: "column",
     justifyContent: "space-evenly",
-    marginLeft: 5,
   },
-
   button: {
     alignItems: "center",
     justifyContent: "center",
@@ -334,26 +322,43 @@ const styles = StyleSheet.create({
     marginTop: 40,
     width: 150,
   },
-
   buttonText: {
     color: "white",
     fontSize: 18,
   },
-
   formRow1: {
     flexDirection: "row",
-    justifyContent: "space-evenly",
+    justifyContent: "center",
+    alignSelf: "center",
+    height: 100,
   },
-
   formRow2: {
     flexDirection: "row",
     justifyContent: "center",
   },
-
   pickerStyle: {
-    height: 25,
+    height: 100,
     width: 150,
-    marginTop: 10,
+    overflow: "visible",
+  },
+  iosPicker: {
+    flexDirection: "column",
+    justifyContent: "center",
+    width: 175,
+    alignSelf: "center",
+    height: 40,
+    overflow: "visible",
+    borderWidth: 1,
+    borderColor: "white",
+    borderRadius: 10,
+  },
+  webPicker: {
+    flexDirection: "column",
+    justifyContent: "center",
+    width: 150,
+    alignSelf: "center",
+    height: 25,
+    borderRadius: 10,
   },
 
   formRow3: {
