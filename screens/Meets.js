@@ -3,13 +3,9 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Pressable,
   Picker,
-  DatePicker,
   ScrollView,
-  Image,
-  ImageBackground,
   Dimensions,
 } from "react-native";
 import EventCard from "../components/EventCard.js";
