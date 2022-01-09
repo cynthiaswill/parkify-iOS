@@ -15,6 +15,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import DateTimePicker from "@react-native-community/datetimepicker";
 import TextField from "@material-ui/core/TextField";
+import Container from "../components/Container";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -145,16 +146,43 @@ export const SignUp = ({ navigation }) => {
         <KeyboardAwareScrollView extraScrollHeight={225} style={styles.wholeScroll}>
           <Image style={styles.image} source={require("../logo.jpg")} />
           <View style={{ alignSelf: "center" }}>
-            <TextInput
+            <View style={styles.input}>
+              {Platform.OS === "ios" ? (
+                <Container.TextField
+                  onChangeText={(text) => handleInputs(text, "username")}
+                  label="Username:"
+                  containerStyle={{ width: 200 }}
+                />
+              ) : (
+                <Container.TextField
+                  onChange={(e) => handleInputs(e.target.value, "username")}
+                  label="Username:"
+                />
+              )}
+            </View>
+            {/* <TextInput
               style={styles.input}
               value={newUser.username}
               onChangeText={(text) => {
                 handleFormChanges(text, "username");
               }}
               placeholder="Username:"
-            />
-
-            <TextInput
+            /> */}
+            <View style={styles.input}>
+              {Platform.OS === "ios" ? (
+                <Container.TextField
+                  onChangeText={(text) => handleInputs(text, "password")}
+                  label="Password:"
+                  containerStyle={{ width: 200 }}
+                />
+              ) : (
+                <Container.TextField
+                  onChange={(e) => handleInputs(e.target.value, "password")}
+                  label="Password:"
+                />
+              )}
+            </View>
+            {/* <TextInput
               style={styles.input}
               value={newUser.password}
               onChangeText={(text) => {
@@ -162,7 +190,7 @@ export const SignUp = ({ navigation }) => {
               }}
               placeholder="Password:"
               secureTextEntry={true}
-            />
+            /> */}
 
             <TextInput
               style={styles.input}
@@ -267,14 +295,11 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   input: {
-    marginTop: 10,
-    marginBottom: 5,
     marginLeft: 30,
     marginRight: 30,
     padding: 3,
     fontSize: 18,
     borderRadius: 4,
-    backgroundColor: "white",
     width: 200,
   },
 

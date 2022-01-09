@@ -87,11 +87,13 @@ export const Login = ({ navigation }) => {
                       onChangeText={(text) => handleInputs(text, "password")}
                       label="Password:"
                       containerStyle={{ width: 200 }}
+                      secureTextEntry={true}
                     />
                   ) : (
                     <Container.TextField
                       onChange={(e) => handleInputs(e.target.value, "password")}
                       label="Password:"
+                      type="password"
                     />
                   )}
                 </View>
