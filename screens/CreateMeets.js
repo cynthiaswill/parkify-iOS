@@ -326,6 +326,7 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: Platform.OS === "ios" || Platform.OS === "android" ? 100 : 30,
     marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 5 : 30,
+    marginBottom: Platform.OS === "ios" || Platform.OS === "android" ? 0 : 10,
   },
 
   pickerStyle: {
