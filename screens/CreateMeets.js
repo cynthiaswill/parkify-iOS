@@ -1,22 +1,15 @@
 import React, { useContext, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Pressable,
-  Dimensions,
-  Platform,
-} from "react-native";
+import { View, Text, StyleSheet, Pressable, Dimensions, Platform } from "react-native";
 import MapView from "react-native-maps";
 import MapMarkers from "../constants/MapMarkers.js";
 import Categories from "../constants/Categories.js";
 import { postEvent } from "../utils/nh-api.js";
 import { UserContext } from "../contexts/user-context.js";
 import { EventContext } from "../contexts/event-context.js";
-import Container from "../components/Container";
 import DropDownPicker from "react-native-dropdown-picker";
+import DateTimePicker from "@react-native-community/datetimepicker";
+import Container from "../components/Container";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -25,7 +18,7 @@ export const CreateMeets = () => {
   const { user } = useContext(UserContext);
   const { event, setEvent } = useContext(EventContext);
   const [open, setOpen] = useState(false);
-  const [categoryValue, setCategoryValue] = useState("");
+  const [categoryValue, setCategoryValue] = useState(null);
   const [categories, setCategories] = useState([
     ...Categories.map((cat) => {
       return {
@@ -48,10 +41,8 @@ export const CreateMeets = () => {
   });
   const [markerClicked, setMarkerClicked] = useState(false);
   const [error, setError] = useState(null);
-  const [startDate, setStartDate] = useState("");
-  const [startTime, setStartTime] = useState("");
-  const [endDate, setEndDate] = useState("");
-  const [endTime, setEndTime] = useState("");
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
 
   const handleFormInput = (text, keyToChange) => {
     setFormResult((prev) => {
@@ -65,8 +56,7 @@ export const CreateMeets = () => {
     setCategoryValue(category);
     setFormResult((prev) => {
       const newState = { ...prev };
-      newState.category = "";
-      if (category !== "Pick a category:") {
+      if (category) {
         newState.category = category;
       }
       return newState;
@@ -82,14 +72,14 @@ export const CreateMeets = () => {
   };
 
   const handleDateBlur = () => {
-    const formStartDate = `${startDate}T${startTime}:00.000Z`;
-    const formEndDate = `${endDate}T${endTime}:00.000Z`;
-    setFormResult((prev) => {
-      const newState = { ...prev };
-      newState.eventStart = formStartDate;
-      newState.eventEnd = formEndDate;
-      return newState;
-    });
+    // const formStartDate = `${startTime}T${startTime}:00.000Z`;
+    // const formEndDate = `${endDate}T${endTime}:00.000Z`;
+    // setFormResult((prev) => {
+    //   const newState = { ...prev };
+    //   newState.eventStart = formStartDate;
+    //   newState.eventEnd = formEndDate;
+    //   return newState;
+    // });
   };
 
   const handleSubmit = () => {
@@ -119,17 +109,23 @@ export const CreateMeets = () => {
           ) : (
             <View style={styles.Input}>
               <Container.TextField
-                onChangeText={(text) => handleFormInput(text, "title")}
+                onChange={(e) => handleFormInput(e.target.value, "title")}
                 placeholder="Title:"
               />
             </View>
           )}
           <DropDownPicker
             items={categories}
-            defaultIndex={0}
-            onChangeItem={(item) => handleCategoryPicker(item)}
+            defaultValue={categoryValue}
+            onSelectItem={(item) => handleCategoryPicker(item)}
             containerStyle={styles.Picker}
-            style={{ backgroundColor: "lightgrey", borderWidth: 1, borderColor: "white" }}
+            placeholder="which category..."
+            style={{
+              backgroundColor: "lightgrey",
+              borderWidth: 1,
+              borderColor: "white",
+              width: 150,
+            }}
           />
         </View>
         <View style={styles.inputDescription}>
@@ -141,53 +137,72 @@ export const CreateMeets = () => {
             />
           ) : (
             <Container.TextField
-              onChangeText={(text) => handleFormInput(text, "description")}
+              onChange={(e) => handleFormInput(e.target.value, "description")}
               label="Please give a description ..."
               multiline={true}
             />
           )}
         </View>
-
         <View style={styles.formRow3}>
-          <Text style={styles.row3Labels}>Start:</Text>
-          <Text style={styles.row3Labels}>End:</Text>
-        </View>
-        <View style={styles.formRow4}>
-          <View style={styles.eventStartContainer}>
-            <TextInput
-              style={styles.dateInput}
-              value={startDate}
-              onChangeText={setStartDate}
-              onBlur={handleDateBlur}
-              placeholder="YYYY-MM-DD"
-              maxLength={10}
-            />
-            <TextInput
-              style={styles.timeInput}
-              value={startTime}
-              onChangeText={setStartTime}
-              handleDateBlur={handleDateBlur}
-              placeholder="HH:MM"
-              maxLength={5}
-            />
+          <View style={{ flex: 1 }}>
+            {Platform.OS === "ios" || Platform.OS === "android" ? (
+              <View style={styles.datePickerContainer}>
+                <View>
+                  <Text style={{ fontSize: 15, alignSelf: "center", color: "grey" }}>
+                    Start time:
+                  </Text>
+                </View>
+                <DateTimePicker
+                  value={startTime}
+                  mode="datetime"
+                  display="default"
+                  is24Hour={true}
+                  onChange={handleDateBlur}
+                  style={styles.datePicker}
+                />
+              </View>
+            ) : (
+              <View style={{ alignSelf: "center", marginTop: 10 }}>
+                <Container.TextField
+                  label="Start time:"
+                  type="datetime-local"
+                  defaultValue={startTime.toISOString().slice(0, 16)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </View>
+            )}
           </View>
-          <View style={styles.eventEndContainer}>
-            <TextInput
-              style={styles.dateInput}
-              value={endDate}
-              onChangeText={setEndDate}
-              onBlur={handleDateBlur}
-              placeholder="YYYY-MM-DD"
-              maxLength={10}
-            />
-            <TextInput
-              style={styles.timeInput}
-              value={endTime}
-              onChangeText={setEndTime}
-              onBlur={handleDateBlur}
-              placeholder="HH:MM"
-              maxLength={5}
-            />
+          <View style={{ flex: 1 }}>
+            {Platform.OS === "ios" || Platform.OS === "android" ? (
+              <View style={styles.datePickerContainer}>
+                <View>
+                  <Text style={{ fontSize: 15, alignSelf: "center", color: "grey" }}>
+                    End time:
+                  </Text>
+                </View>
+                <DateTimePicker
+                  value={endTime}
+                  mode="datetime"
+                  display="default"
+                  is24Hour={true}
+                  onChange={handleDateBlur}
+                  style={styles.datePicker}
+                />
+              </View>
+            ) : (
+              <View style={{ alignSelf: "center", marginTop: 10 }}>
+                <Container.TextField
+                  label="End time:"
+                  type="datetime-local"
+                  defaultValue={endTime.toISOString().slice(0, 16)}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                />
+              </View>
+            )}
           </View>
         </View>
       </View>
@@ -281,7 +296,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 5,
     width: 150,
-    alignSelf: "stretch",
   },
   iOSInput: {
     marginBottom: 10,
@@ -346,9 +360,11 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 50 : 0,
   },
   formRow3: {
-    marginTop: 10,
-    flexDirection: "row",
-    paddingHorizontal: 20,
+    marginVertical: 20,
+    flexDirection: Platform.OS === "ios" || Platform.OS === "android" ? "row" : "column",
+    justifyContent: "center",
+    marginRight: 7,
+    overflow: "visible",
   },
   row3Labels: {
     textAlign: "left",

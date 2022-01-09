@@ -402,7 +402,6 @@ const styles = StyleSheet.create({
     flex: 5,
     alignSelf: "flex-start",
     borderRadius: 5,
-    overflow: "hidden",
     marginVertical: 2,
   },
 });
