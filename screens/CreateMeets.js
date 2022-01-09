@@ -327,7 +327,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignSelf: "center",
     height: 40,
-    marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 0 : 30,
+    marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 5 : 30,
   },
 
   pickerStyle: {
