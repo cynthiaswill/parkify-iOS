@@ -33,7 +33,7 @@ export const CreateMeets = () => {
     title: "",
     description: "",
     creator: "",
-    category: "",
+    category: null,
     location: {},
     eventImage: "",
     eventStart: "",
@@ -206,9 +206,11 @@ export const CreateMeets = () => {
           </View>
         </View>
       </View>
-      <View style={styles.formRow5}>
-        <View style={styles.mapContainer}>
-          <Text>Pick a park to hold your event:</Text>
+
+      <View style={styles.mapContainer}>
+        <Text>Pick a location:</Text>
+
+        <View style={{ marginVertical: 10 }}>
           <MapView
             style={styles.map}
             initialRegion={{
@@ -236,13 +238,14 @@ export const CreateMeets = () => {
               );
             })}
           </MapView>
-          {markerClicked ? (
-            <Text style={styles.mapText}>{formResult.location.name} selected!</Text>
-          ) : null}
-          {error ? <Text style={styles.error}>{error}</Text> : null}
         </View>
-        <View style={styles.buttonContainer}>
-          {/* <Pressable
+        {markerClicked ? (
+          <Text style={styles.mapText}>{formResult.location.name} selected!</Text>
+        ) : null}
+        {error ? <Text style={styles.error}>{error}</Text> : null}
+      </View>
+      <View style={styles.buttonContainer}>
+        {/* <Pressable
             style={styles.button}
             onPress={() => {
               uploadEventImage;
@@ -251,16 +254,15 @@ export const CreateMeets = () => {
             <Text style={styles.buttonText}>Upload Image</Text>
           </Pressable> */}
 
-          <Pressable
-            style={styles.button}
-            onPress={() => {
-              handleSubmit();
-              navigation.navigate("Find Event");
-            }}
-          >
-            <Text style={styles.buttonText}>Submit!</Text>
-          </Pressable>
-        </View>
+        <Pressable
+          style={styles.button}
+          onPress={() => {
+            handleSubmit();
+            navigation.navigate("Find Event");
+          }}
+        >
+          <Text style={styles.buttonText}>Submit!</Text>
+        </Pressable>
       </View>
     </View>
   );
@@ -268,20 +270,26 @@ export const CreateMeets = () => {
 
 const styles = StyleSheet.create({
   wholePage: {
+    flexDirection: "column",
     width: windowWidth,
     height: Number(parseInt(windowHeight) - 60),
     backgroundColor: "lightgrey",
   },
-  pageContainer: {
-    flex: 1,
-    backgroundColor: "#fff",
+  formContainer: {
+    flex: 2,
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+  },
+  mapContainer: {
+    flex: 3,
+    flexDirection: "column",
+    marginTop: 30,
     alignItems: "center",
+    marginBottom: 10,
   },
   buttonContainer: {
     flex: 1,
     alignItems: "center",
-    marginTop: 50,
-    paddingTop: 10,
   },
 
   Input: {
@@ -315,20 +323,14 @@ const styles = StyleSheet.create({
     fontSize: 18,
     borderRadius: 5,
   },
-  formContainer: {
-    flexDirection: "column",
-    justifyContent: "space-evenly",
-  },
   button: {
     alignItems: "center",
-    justifyContent: "center",
-    paddingVertical: 12,
+    paddingVertical: 10,
     paddingHorizontal: 10,
     borderRadius: 10,
     backgroundColor: "#8E806A",
     elevation: 3,
-    marginVertical: 10,
-    marginTop: 40,
+    marginVertical: 15,
     width: 150,
   },
   buttonText: {
@@ -343,7 +345,6 @@ const styles = StyleSheet.create({
     height: 40,
     marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 5 : 30,
   },
-
   pickerStyle: {
     height: 100,
     width: 150,
@@ -360,7 +361,7 @@ const styles = StyleSheet.create({
     marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 50 : 0,
   },
   formRow3: {
-    marginVertical: 20,
+    marginTop: 10,
     flexDirection: Platform.OS === "ios" || Platform.OS === "android" ? "row" : "column",
     justifyContent: "center",
     marginRight: 7,
@@ -370,22 +371,6 @@ const styles = StyleSheet.create({
     textAlign: "left",
     flex: 1,
     paddingLeft: 8,
-  },
-
-  formRow4: {
-    marginTop: 10,
-    flexDirection: "row",
-    justifyContent: "space-evenly",
-    paddingHorizontal: 20,
-    marginBottom: 10,
-  },
-
-  formRow5: {
-    marginTop: 10,
-    flexDirection: "column",
-    justifyContent: "center",
-    paddingHorizontal: 20,
-    marginBottom: 10,
   },
   eventStartContainer: {
     flexDirection: "row",
@@ -411,13 +396,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: "white",
   },
-  mapContainer: {
-    flexDirection: "column",
-    marginTop: 10,
-    flex: 1,
-    alignItems: "center",
-    marginBottom: 20,
-  },
+
   mapText: {
     fontSize: 18,
     marginBottom: 10,
