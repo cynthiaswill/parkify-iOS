@@ -9,10 +9,12 @@ import {
   Pressable,
   Image,
   Dimensions,
+  Platform,
 } from "react-native";
 import { SignUp } from "./SignUp";
 import { loginUser } from "../utils/frosty-api";
 import { UserContext } from "../contexts/user-context";
+import Container from "../components/Container";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -65,6 +67,19 @@ export const Login = ({ navigation }) => {
               </View>
 
               <View style={styles.formContainer}>
+                {Platform.OS === "ios" ? (
+                  <Container.TextField
+                    onChangeText={(text) => handleInputs(text, "username")}
+                    label="Username:"
+                    containerStyle={{ width: 200 }}
+                  />
+                ) : (
+                  <Container.TextField
+                    onChange={(e) => handleInputs(e.target.value, "username")}
+                    label="Username:"
+                  />
+                )}
+
                 <TextInput
                   style={styles.input}
                   value={formData.username}
