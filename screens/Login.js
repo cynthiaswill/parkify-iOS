@@ -67,32 +67,35 @@ export const Login = ({ navigation }) => {
               </View>
 
               <View style={styles.formContainer}>
-                {Platform.OS === "ios" ? (
-                  <Container.TextField
-                    onChangeText={(text) => handleInputs(text, "username")}
-                    label="Username:"
-                    containerStyle={{ width: 200 }}
-                  />
-                ) : (
-                  <Container.TextField
-                    onChange={(e) => handleInputs(e.target.value, "username")}
-                    label="Username:"
-                  />
-                )}
+                <View style={styles.input}>
+                  {Platform.OS === "ios" ? (
+                    <Container.TextField
+                      onChangeText={(text) => handleInputs(text, "username")}
+                      label="Username:"
+                      containerStyle={{ width: 200 }}
+                    />
+                  ) : (
+                    <Container.TextField
+                      onChange={(e) => handleInputs(e.target.value, "username")}
+                      label="Username:"
+                    />
+                  )}
+                </View>
+                <View style={styles.input}>
+                  {Platform.OS === "ios" ? (
+                    <Container.TextField
+                      onChangeText={(text) => handleInputs(text, "password")}
+                      label="Password:"
+                      containerStyle={{ width: 200 }}
+                    />
+                  ) : (
+                    <Container.TextField
+                      onChange={(e) => handleInputs(e.target.value, "password")}
+                      label="Password:"
+                    />
+                  )}
+                </View>
 
-                <TextInput
-                  style={styles.input}
-                  value={formData.username}
-                  onChangeText={(text) => handleInputs(text, "username")}
-                  placeholder="Username:"
-                />
-                <TextInput
-                  style={styles.input}
-                  value={formData.password}
-                  onChangeText={(text) => handleInputs(text, "password")}
-                  placeholder="Password:"
-                  secureTextEntry={true}
-                />
                 {error && <Text style={styles.error}>{error}</Text>}
                 <View style={styles.buttonContainer}>
                   <Pressable style={styles.button} onPress={handleLogin}>
@@ -146,12 +149,12 @@ const styles = StyleSheet.create({
     justifyContent: "center",
   },
   logoContainer: {
-    flex: 1,
+    flex: 2,
     flexDirection: "row",
     justifyContent: "center",
   },
   formContainer: {
-    flex: 1,
+    flex: 3,
     alignItems: "center",
   },
   logo: {
@@ -161,18 +164,15 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   input: {
-    marginTop: 10,
-    marginBottom: 10,
     marginLeft: 30,
     marginRight: 30,
     padding: 3,
     fontSize: 18,
     borderRadius: 4,
-    backgroundColor: "white",
     width: 200,
   },
   buttonContainer: {
-    marginTop: 15,
+    marginTop: 30,
   },
   button: {
     alignItems: "center",
