@@ -124,31 +124,28 @@ export const CreateMeets = () => {
               />
             </View>
           )}
-
           <DropDownPicker
             items={categories}
             defaultIndex={0}
             onChangeItem={(item) => handleCategoryPicker(item)}
-            containerStyle={styles.iosPicker}
+            containerStyle={styles.Picker}
           />
         </View>
-        {Platform.OS === "ios" || Platform.OS === "android" ? (
-          <View style={styles.inputDescription}>
+        <View style={styles.inputDescription}>
+          {Platform.OS === "ios" || Platform.OS === "android" ? (
             <Container.OutlinedTextField
               onChangeText={(text) => handleFormInput(text, "description")}
               label="Please give a description ..."
               multiline={true}
             />
-          </View>
-        ) : (
-          <View style={styles.inputDescription}>
+          ) : (
             <Container.TextField
               onChangeText={(text) => handleFormInput(text, "description")}
               label="Please give a description ..."
               multiline={true}
             />
-          </View>
-        )}
+          )}
+        </View>
 
         <View style={styles.formRow3}>
           <Text style={styles.row3Labels}>Start:</Text>
@@ -336,21 +333,14 @@ const styles = StyleSheet.create({
     width: 150,
     overflow: "visible",
   },
-  iosPicker: {
+  Picker: {
     flexDirection: "column",
     justifyContent: "center",
-    width: 175,
+    width: 150,
     alignSelf: "center",
     height: 30,
     borderRadius: 10,
   },
-  webPicker: {
-    width: 150,
-    alignSelf: "center",
-    height: 25,
-    borderRadius: 10,
-  },
-
   formRow3: {
     marginTop: 10,
     flexDirection: "row",
