@@ -147,71 +147,93 @@ export const SignUp = ({ navigation }) => {
           <Image style={styles.image} source={require("../logo.jpg")} />
           <View style={{ alignSelf: "center" }}>
             <View style={styles.input}>
-              {Platform.OS === "ios" ? (
+              {Platform.OS === "ios" || Platform.OS === "android" ? (
                 <Container.TextField
-                  onChangeText={(text) => handleInputs(text, "username")}
+                  onChangeText={(text) => {
+                    handleFormChanges(text, "username");
+                  }}
                   label="Username:"
-                  containerStyle={{ width: 200 }}
+                  containerStyle={{ width: 200, maxHeight: 25 }}
                 />
               ) : (
                 <Container.TextField
-                  onChange={(e) => handleInputs(e.target.value, "username")}
+                  onChange={(e) => {
+                    handleFormChanges(e.target.value, "username");
+                  }}
                   label="Username:"
                 />
               )}
             </View>
-            {/* <TextInput
-              style={styles.input}
-              value={newUser.username}
-              onChangeText={(text) => {
-                handleFormChanges(text, "username");
-              }}
-              placeholder="Username:"
-            /> */}
             <View style={styles.input}>
-              {Platform.OS === "ios" ? (
+              {Platform.OS === "ios" || Platform.OS === "android" ? (
                 <Container.TextField
-                  onChangeText={(text) => handleInputs(text, "password")}
+                  onChangeText={(text) => handleFormChanges(text, "password")}
                   label="Password:"
+                  containerStyle={{ width: 200, maxHeight: 25 }}
+                  secureTextEntry={true}
+                />
+              ) : (
+                <Container.TextField
+                  onChange={(e) => handleFormChanges(e.target.value, "password")}
+                  label="Password:"
+                  type="password"
+                />
+              )}
+            </View>
+            <View style={styles.input}>
+              {Platform.OS === "ios" || Platform.OS === "android" ? (
+                <Container.TextField
+                  onChangeText={(text) => {
+                    handleFormChanges(text, "displayName");
+                  }}
+                  label="Display name:"
                   containerStyle={{ width: 200 }}
                 />
               ) : (
                 <Container.TextField
-                  onChange={(e) => handleInputs(e.target.value, "password")}
-                  label="Password:"
+                  onChange={(e) => {
+                    handleFormChanges(e.target.value, "displayName");
+                  }}
+                  label="Display name:"
                 />
               )}
             </View>
-            {/* <TextInput
-              style={styles.input}
-              value={newUser.password}
-              onChangeText={(text) => {
-                handleFormChanges(text, "password");
-              }}
-              placeholder="Password:"
-              secureTextEntry={true}
-            /> */}
-
-            <TextInput
-              style={styles.input}
-              value={newUser.displayName}
-              onChangeText={(text) => handleFormChanges(text, "displayName")}
-              placeholder="Display Name:"
-            />
-
-            <TextInput
-              style={styles.input}
-              value={newUser.pronouns}
-              onChangeText={(text) => handleFormChanges(text, "pronouns")}
-              placeholder="Pronouns:"
-            />
-
-            <TextInput
-              style={styles.input}
-              value={newUser.email}
-              onChangeText={(text) => handleFormChanges(text, "email")}
-              placeholder="email:"
-            />
+            <View style={styles.input}>
+              {Platform.OS === "ios" || Platform.OS === "android" ? (
+                <Container.TextField
+                  onChangeText={(text) => {
+                    handleFormChanges(text, "pronouns");
+                  }}
+                  label="Pronouns:"
+                  containerStyle={{ width: 200 }}
+                />
+              ) : (
+                <Container.TextField
+                  onChange={(e) => {
+                    handleFormChanges(e.target.value, "pronouns");
+                  }}
+                  label="Pronouns:"
+                />
+              )}
+            </View>
+            <View style={styles.input}>
+              {Platform.OS === "ios" || Platform.OS === "android" ? (
+                <Container.TextField
+                  onChangeText={(text) => {
+                    handleFormChanges(text, "email");
+                  }}
+                  label="Email:"
+                  containerStyle={{ width: 200 }}
+                />
+              ) : (
+                <Container.TextField
+                  onChange={(e) => {
+                    handleFormChanges(e.target.value, "email");
+                  }}
+                  label="Email:"
+                />
+              )}
+            </View>
           </View>
           {Platform.OS === "ios" || Platform.OS === "android" ? (
             <View style={styles.datePickerContainer}>
@@ -297,10 +319,12 @@ const styles = StyleSheet.create({
   input: {
     marginLeft: 30,
     marginRight: 30,
+    marginBottom: 5,
     padding: 3,
     fontSize: 18,
     borderRadius: 4,
     width: 200,
+    height: 45,
   },
 
   formContainer: {
@@ -335,10 +359,10 @@ const styles = StyleSheet.create({
   },
 
   image: {
+    marginBottom: 15,
     width: 160,
     height: 160,
     borderRadius: 80,
-    margin: 20,
     alignSelf: "center",
   },
   arrow: {

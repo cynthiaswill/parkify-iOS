@@ -68,7 +68,7 @@ export const Login = ({ navigation }) => {
 
               <View style={styles.formContainer}>
                 <View style={styles.input}>
-                  {Platform.OS === "ios" ? (
+                  {Platform.OS === "ios" || Platform.OS === "android" ? (
                     <Container.TextField
                       onChangeText={(text) => handleInputs(text, "username")}
                       label="Username:"
@@ -82,7 +82,7 @@ export const Login = ({ navigation }) => {
                   )}
                 </View>
                 <View style={styles.input}>
-                  {Platform.OS === "ios" ? (
+                  {Platform.OS === "ios" || Platform.OS === "android" ? (
                     <Container.TextField
                       onChangeText={(text) => handleInputs(text, "password")}
                       label="Password:"
