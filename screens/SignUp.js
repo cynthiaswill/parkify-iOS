@@ -377,6 +377,7 @@ const styles = StyleSheet.create({
   },
   wholeScroll: {
     flex: 1,
+    width: Number(parseInt(windowWidth)),
   },
 
   datePickerContainer: {

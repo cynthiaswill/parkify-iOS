@@ -9,7 +9,6 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
-import { Picker } from "@react-native-picker/picker";
 import MapView from "react-native-maps";
 import MapMarkers from "../constants/MapMarkers.js";
 import Categories from "../constants/Categories.js";
@@ -114,6 +113,7 @@ export const CreateMeets = () => {
               <Container.TextField
                 onChangeText={(text) => handleFormInput(text, "title")}
                 label="Title:"
+                inputContainerStyle={{ height: 60 }}
               />
             </View>
           ) : (
@@ -129,11 +129,12 @@ export const CreateMeets = () => {
             defaultIndex={0}
             onChangeItem={(item) => handleCategoryPicker(item)}
             containerStyle={styles.Picker}
+            style={{ backgroundColor: "lightgrey", borderWidth: 1, borderColor: "white" }}
           />
         </View>
         <View style={styles.inputDescription}>
           {Platform.OS === "ios" || Platform.OS === "android" ? (
-            <Container.OutlinedTextField
+            <Container.TextField
               onChangeText={(text) => handleFormInput(text, "description")}
               label="Please give a description ..."
               multiline={true}
@@ -269,6 +270,7 @@ const styles = StyleSheet.create({
   },
 
   Input: {
+    flex: 1,
     flexDirection: "column",
     justifyContent: "center",
     marginTop: 10,
@@ -292,7 +294,7 @@ const styles = StyleSheet.create({
     width: 150,
   },
   inputDescription: {
-    marginTop: 10,
+    marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 25 : 5,
     marginLeft: 40,
     marginRight: 40,
     padding: 1,
@@ -324,9 +326,8 @@ const styles = StyleSheet.create({
     zIndex: 5000,
     justifyContent: "center",
     alignSelf: "center",
-    height: Platform.OS === "ios" || Platform.OS === "android" ? 100 : 30,
-    marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 5 : 30,
-    marginBottom: Platform.OS === "ios" || Platform.OS === "android" ? 0 : 10,
+    height: 40,
+    marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 0 : 30,
   },
 
   pickerStyle: {
@@ -341,6 +342,8 @@ const styles = StyleSheet.create({
     alignSelf: "center",
     height: 30,
     borderRadius: 10,
+    backgroundColor: "grey",
+    marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 50 : 0,
   },
   formRow3: {
     marginTop: 10,
