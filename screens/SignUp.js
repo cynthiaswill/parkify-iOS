@@ -14,7 +14,6 @@ import { UserContext } from "../contexts/user-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import DateTimePicker from "@react-native-community/datetimepicker";
-import TextField from "@material-ui/core/TextField";
 import Container from "../components/Container";
 
 const windowWidth = Dimensions.get("window").width;
@@ -238,7 +237,9 @@ export const SignUp = ({ navigation }) => {
           {Platform.OS === "ios" || Platform.OS === "android" ? (
             <View style={styles.datePickerContainer}>
               <View style={styles.DOB}>
-                <Text style={{ fontSize: 15, alignSelf: "center" }}>Date of Birth</Text>
+                <Text style={{ fontSize: 15, alignSelf: "center", color: "grey" }}>
+                  Date of Birth:
+                </Text>
               </View>
               <DateTimePicker
                 value={date}
@@ -251,9 +252,9 @@ export const SignUp = ({ navigation }) => {
             </View>
           ) : (
             <View style={{ alignSelf: "center", marginTop: 10 }}>
-              <TextField
+              <Container.TextField
                 id="date"
-                label="Choose your Birthdate"
+                label="Date of Birth:"
                 type="date"
                 defaultValue="2000-01-01"
                 InputLabelProps={{
@@ -379,20 +380,19 @@ const styles = StyleSheet.create({
   },
 
   datePickerContainer: {
-    display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
-    marginVertical: 10,
+    marginTop: 20,
     borderRadius: 5,
     paddingHorizontal: 5,
     alignSelf: "center",
-    backgroundColor: "white",
     width: 220,
+    borderBottomWidth: 1,
+    borderColor: "grey",
   },
   DOB: {
     flex: 4,
-    width: 100,
   },
   // This only works on iOS
   datePicker: {
@@ -400,11 +400,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     flex: 5,
     alignSelf: "flex-start",
-    backgroundColor: "lightgrey",
     borderRadius: 5,
     overflow: "hidden",
-    borderWidth: 1,
-    borderColor: "grey",
     marginVertical: 2,
   },
 });
