@@ -119,7 +119,7 @@ export const CreateMeets = () => {
             defaultValue={categoryValue}
             onSelectItem={(item) => handleCategoryPicker(item)}
             containerStyle={styles.Picker}
-            placeholder="which category..."
+            placeholder="Category:"
             style={{
               backgroundColor: "lightgrey",
               borderWidth: 1,
