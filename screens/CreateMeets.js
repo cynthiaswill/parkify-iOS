@@ -17,6 +17,7 @@ import { postEvent } from "../utils/nh-api.js";
 import { UserContext } from "../contexts/user-context.js";
 import { EventContext } from "../contexts/event-context.js";
 import Container from "../components/Container";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -26,6 +27,14 @@ export const CreateMeets = () => {
   const { event, setEvent } = useContext(EventContext);
   const [open, setOpen] = useState(false);
   const [categoryValue, setCategoryValue] = useState("");
+  const [categories, setCategories] = useState([
+    ...Categories.map((cat) => {
+      return {
+        label: cat.category_name,
+        value: cat.category_name,
+      };
+    }),
+  ]);
   const navigation = useNavigation();
 
   const [formResult, setFormResult] = useState({
@@ -100,57 +109,28 @@ export const CreateMeets = () => {
     <View style={styles.wholePage}>
       <View style={styles.formContainer}>
         <View style={styles.formRow1}>
-          <View
-            style={{
-              flexDirection: "column",
-              justifyContent: "center",
-            }}
-          >
-            <TextInput
-              style={
-                Platform.OS === "ios" || Platform.OS === "android"
-                  ? styles.iosInput
-                  : styles.webInput
-              }
-              value={formResult.title}
-              onChangeText={(text) => handleFormInput(text, "title")}
-              placeholder="Title:"
-            />
-          </View>
-          <View
-            style={
-              Platform.OS === "ios" || Platform.OS === "android"
-                ? styles.iosPicker
-                : styles.webPicker
-            }
-          >
-            <Picker
-              style={styles.pickerStyle}
-              itemStyle={{
-                height: 100,
-                width: 180,
-                fontSize: 15,
-                flex: 1,
-              }}
-              selectedValue={categoryValue}
-              onValueChange={(itemValue, itemIndex) => handleCategoryPicker(itemValue)}
-            >
-              <Picker.Item
-                key="Pick a category:"
-                label="Pick a category:"
-                value="Pick a category:"
+          {Platform.OS === "ios" || Platform.OS === "android" ? (
+            <View style={styles.iOSInput}>
+              <Container.TextField
+                onChangeText={(text) => handleFormInput(text, "title")}
+                label="Title:"
               />
-              {Categories.map((cat) => {
-                return (
-                  <Picker.Item
-                    key={cat.category_name}
-                    label={cat.category_name}
-                    value={cat.category_name}
-                  />
-                );
-              })}
-            </Picker>
-          </View>
+            </View>
+          ) : (
+            <View style={styles.Input}>
+              <Container.TextField
+                onChangeText={(text) => handleFormInput(text, "title")}
+                placeholder="Title:"
+              />
+            </View>
+          )}
+
+          <DropDownPicker
+            items={categories}
+            defaultIndex={0}
+            onChangeItem={(item) => handleCategoryPicker(item)}
+            containerStyle={styles.iosPicker}
+          />
         </View>
         {Platform.OS === "ios" || Platform.OS === "android" ? (
           <View style={styles.inputDescription}>
@@ -290,32 +270,32 @@ const styles = StyleSheet.create({
     marginTop: 50,
     paddingTop: 10,
   },
-  webInput: {
+
+  Input: {
+    flexDirection: "column",
+    justifyContent: "center",
     marginTop: 10,
-    marginBottom: 10,
+    marginBottom: 20,
     marginRight: 5,
     maxWidth: 150,
     padding: 1,
     fontSize: 18,
     borderRadius: 5,
-    backgroundColor: "white",
     width: 150,
+    alignSelf: "stretch",
   },
-  iosInput: {
-    marginTop: 10,
+  iOSInput: {
     marginBottom: 10,
     marginRight: 5,
     maxWidth: 150,
     padding: 1,
-    height: 35,
     fontSize: 18,
+    height: 45,
     borderRadius: 5,
-    backgroundColor: "white",
-    width: 175,
+    width: 150,
   },
   inputDescription: {
     marginTop: 10,
-    marginBottom: 10,
     marginLeft: 40,
     marginRight: 40,
     padding: 1,
@@ -344,15 +324,13 @@ const styles = StyleSheet.create({
   },
   formRow1: {
     flexDirection: "row",
+    zIndex: 5000,
     justifyContent: "center",
     alignSelf: "center",
     height: Platform.OS === "ios" || Platform.OS === "android" ? 100 : 30,
     marginTop: Platform.OS === "ios" || Platform.OS === "android" ? 5 : 30,
   },
-  // formRow2: {
-  //   flexDirection: "row",
-  //   justifyContent: "center",
-  // },
+
   pickerStyle: {
     height: 100,
     width: 150,
@@ -363,15 +341,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     width: 175,
     alignSelf: "center",
-    height: 40,
-    overflow: "visible",
-    borderWidth: 1,
-    borderColor: "white",
+    height: 30,
     borderRadius: 10,
   },
   webPicker: {
-    flexDirection: "column",
-    justifyContent: "center",
     width: 150,
     alignSelf: "center",
     height: 25,
