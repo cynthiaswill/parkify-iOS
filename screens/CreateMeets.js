@@ -71,15 +71,13 @@ export const CreateMeets = () => {
     });
   };
 
-  const handleDateBlur = () => {
-    // const formStartDate = `${startTime}T${startTime}:00.000Z`;
-    // const formEndDate = `${endDate}T${endTime}:00.000Z`;
-    // setFormResult((prev) => {
-    //   const newState = { ...prev };
-    //   newState.eventStart = formStartDate;
-    //   newState.eventEnd = formEndDate;
-    //   return newState;
-    // });
+  const handleTimeChange = () => {
+    setFormResult((prev) => {
+      const newState = { ...prev };
+      newState.eventStart = startTime.toISOString().slice(0, 16);
+      newState.eventEnd = endTime.toISOString().slice(0, 16);
+      return newState;
+    });
   };
 
   const handleSubmit = () => {
@@ -157,7 +155,7 @@ export const CreateMeets = () => {
                   mode="datetime"
                   display="default"
                   is24Hour={true}
-                  onChange={handleDateBlur}
+                  onChange={handleTimeChange}
                   style={styles.datePicker}
                 />
               </View>
@@ -187,7 +185,7 @@ export const CreateMeets = () => {
                   mode="datetime"
                   display="default"
                   is24Hour={true}
-                  onChange={handleDateBlur}
+                  onChange={handleTimeChange}
                   style={styles.datePicker}
                 />
               </View>
