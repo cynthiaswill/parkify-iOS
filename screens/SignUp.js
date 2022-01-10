@@ -28,9 +28,9 @@ export const SignUp = ({ navigation }) => {
     displayName: "",
     pronouns: "",
     email: "",
-    dateOfBirth: "",
+    dateOfBirth: "01/01/2000",
   });
-  const [date, setDate] = useState("01/01/2000");
+  const [date, setDate] = useState(new Date("2000-01-01"));
 
   // const SERVER_URL = "http://localhost:3000";
 
@@ -117,10 +117,30 @@ export const SignUp = ({ navigation }) => {
   };
 
   const onDateChange = (value) => {
+    setDate(new Date(value));
+    const dateString = date.toISOString();
     const newValue =
-      value.slice(8, 10) + "/" + value.slice(5, 7) + "/" + value.slice(0, 4);
-    setDate(newValue);
-    handleFormChanges(date, "dateOfBirth");
+      dateString.slice(8, 10) +
+      "/" +
+      dateString.slice(5, 7) +
+      "/" +
+      dateString.slice(0, 4);
+    console.log(newValue);
+    handleFormChanges(newValue, "dateOfBirth");
+  };
+
+  const onDateChangeIOS = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setDate(currentDate);
+    const dateString = date.toISOString();
+    const newValue =
+      dateString.slice(8, 10) +
+      "/" +
+      dateString.slice(5, 7) +
+      "/" +
+      dateString.slice(0, 4);
+    console.log(newValue);
+    handleFormChanges(newValue, "dateOfBirth");
   };
 
   return (
@@ -242,7 +262,7 @@ export const SignUp = ({ navigation }) => {
                 mode={"date"}
                 display={"default"}
                 is24Hour={true}
-                onChange={onDateChange}
+                onChange={onDateChangeIOS}
                 style={styles.datePicker}
               />
             </View>
