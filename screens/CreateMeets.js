@@ -99,7 +99,7 @@ export const CreateMeets = () => {
     } else {
       setError(null);
     }
-  }, []);
+  }, [user]);
 
   return (
     <View style={styles.wholePage}>
