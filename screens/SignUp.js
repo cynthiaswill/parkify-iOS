@@ -97,10 +97,7 @@ export const SignUp = ({ navigation }) => {
       setError("Password must be at least 8 characters.");
     } else if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(newUser.email)) {
       setError("Please enter a valid email.");
-    } else if (
-      !/^\d{4}-\d{2}-\d{2}$/.test(newUser.dateOfBirth) ||
-      newUser.dateOfBirth > new Date().toISOString().substring(0, 10)
-    ) {
+    } else if (!/^\d{2}\/\d{2}\/\d{4}$/.test(newUser.dateOfBirth)) {
       setError("Please enter a valid date of birth.");
     } else {
       postNewUser(newUser)
