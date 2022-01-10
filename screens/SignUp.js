@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Image,
   Pressable,
   Dimensions,
@@ -31,7 +30,6 @@ export const SignUp = ({ navigation }) => {
     email: "",
     dateOfBirth: "",
   });
-  const [isPickerShow, setIsPickerShow] = useState(false);
   const [date, setDate] = useState(new Date("2000-01-01T00:00:00"));
 
   // const SERVER_URL = "http://localhost:3000";
@@ -84,10 +82,7 @@ export const SignUp = ({ navigation }) => {
   };
 
   const handleSubmit = () => {
-    // check if all fields are filled out
-    // set error to null
     setError(null);
-
     if (
       !newUser.username ||
       !newUser.password ||

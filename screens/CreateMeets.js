@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { View, Text, StyleSheet, Pressable, Dimensions, Platform } from "react-native";
 import MapView from "react-native-maps";
@@ -91,6 +91,13 @@ export const CreateMeets = () => {
   };
 
   // const uploadEventImage = () => {};
+
+  useEffect(() => {
+    if (!user) {
+      setError("You have to login first!");
+      // navigation.navigate("Login");
+    }
+  }, []);
 
   return (
     <View style={styles.wholePage}>
@@ -255,8 +262,12 @@ export const CreateMeets = () => {
         <Pressable
           style={styles.button}
           onPress={() => {
-            handleSubmit();
-            navigation.navigate("Find Event");
+            if (user) {
+              handleSubmit();
+              navigation.navigate("Find Event");
+            } else {
+              setError("You have to login first!");
+            }
           }}
         >
           <Text style={styles.buttonText}>Submit!</Text>
@@ -410,7 +421,7 @@ const styles = StyleSheet.create({
   },
 
   error: {
-    color: "red",
+    color: "darkred",
     fontSize: 18,
     marginBottom: 10,
   },
