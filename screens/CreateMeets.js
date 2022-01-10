@@ -96,6 +96,8 @@ export const CreateMeets = () => {
     if (!user) {
       setError("You have to login first!");
       // navigation.navigate("Login");
+    } else {
+      setError(null);
     }
   }, []);
 
