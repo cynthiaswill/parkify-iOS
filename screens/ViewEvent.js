@@ -85,9 +85,6 @@ export const ViewEvent = () => {
           >
             <Text style={{ marginVertical: 5, fontWeight: "bold" }}>
               <MaterialIcons name="arrow-back-ios" size={28} color="black" />
-              <View>
-                <Text style={{ fontSize: 18 }}>Back</Text>
-              </View>
             </Text>
           </Pressable>
         </View>
