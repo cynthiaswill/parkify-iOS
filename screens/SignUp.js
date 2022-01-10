@@ -30,7 +30,7 @@ export const SignUp = ({ navigation }) => {
     email: "",
     dateOfBirth: "",
   });
-  const [date, setDate] = useState(new Date("2000-01-01T00:00:00"));
+  const [date, setDate] = useState("01/01/2000");
 
   // const SERVER_URL = "http://localhost:3000";
 
@@ -82,6 +82,7 @@ export const SignUp = ({ navigation }) => {
   };
 
   const handleSubmit = () => {
+    console.log(newUser);
     setError(null);
     if (
       !newUser.username ||
@@ -118,8 +119,11 @@ export const SignUp = ({ navigation }) => {
     }
   };
 
-  const onDateChange = (event, value) => {
-    setDate(value);
+  const onDateChange = (value) => {
+    const newValue =
+      value.slice(8, 10) + "/" + value.slice(5, 7) + "/" + value.slice(0, 4);
+    setDate(newValue);
+    handleFormChanges(date, "dateOfBirth");
   };
 
   return (
@@ -252,6 +256,9 @@ export const SignUp = ({ navigation }) => {
                 label="Date of Birth:"
                 type="date"
                 defaultValue="2000-01-01"
+                onChange={(e) => {
+                  onDateChange(e.target.value);
+                }}
                 InputLabelProps={{
                   shrink: true,
                 }}
