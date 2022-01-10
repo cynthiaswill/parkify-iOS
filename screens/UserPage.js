@@ -29,122 +29,136 @@ export const UserPage = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    getProfile(user.token).then(({ data }) => {
-      setHostedEvents(data.user.hostedEvents);
-      setAttendedEvents(data.user.attendedEvents);
-    });
+    if (!user) {
+      // setError("You have to login first!");
+      navigation.navigate("Login");
+    } else {
+      getProfile(user.token).then(({ data }) => {
+        setHostedEvents(data.user.hostedEvents);
+        setAttendedEvents(data.user.attendedEvents);
+      });
+    }
   }, []);
-  return (
-    <View style={styles.wholePage}>
-      <View style={styles.pageContainer}>
-        <View style={styles.firstRowContainer}>
-          <Text style={styles.username}>{user.username}</Text>
-          {editClicked ? (
-            <Pressable
-              onPress={() => {
-                setEditClicked(false);
-              }}
-              style={styles.editButton}
-            >
-              <Text style={{ color: "white" }}>Cancel</Text>
-            </Pressable>
-          ) : (
-            <Pressable
-              onPress={() => {
-                setEditClicked(true);
-              }}
-              style={styles.editButton}
-            >
-              <Text style={{ color: "white" }}>Edit</Text>
-            </Pressable>
-          )}
-        </View>
-        <View style={styles.middlePartContainer}>
-          <View style={styles.pictureContainer}>
-            <Image source={require("../logo.jpg")} style={styles.avatar} />
-            <Pressable style={styles.uploadImage} onPress={() => {}}>
-              <Text style={{ color: "white" }}>Upload Photo</Text>
-            </Pressable>
-          </View>
-          <View style={styles.detailsContainer}>
+
+  if (user) {
+    return (
+      <View style={styles.wholePage}>
+        <View style={styles.pageContainer}>
+          <View style={styles.firstRowContainer}>
+            <Text style={styles.username}>{user.username}</Text>
             {editClicked ? (
-              <TextInput placeholder="Display name..." style={styles.textInputDetails} />
-            ) : (
-              <Text style={styles.displayName}>{user.displayName}</Text>
-            )}
-            {editClicked ? (
-              <TextInput placeholder="Pronouns..." style={styles.textInputDetails} />
-            ) : (
-              <Text style={styles.pronouns}>{user.pronouns}</Text>
-            )}
-            <Text style={styles.dateOfBirth}>{user.dateOfBirth}</Text>
-          </View>
-        </View>
-        <View style={styles.eventListBox}>
-          <Text>Hosted:</Text>
-          {hostedEvents.length > 0 ? (
-            !hostedClicked ? (
               <Pressable
                 onPress={() => {
-                  setHostedClicked(true);
+                  setEditClicked(false);
                 }}
+                style={styles.editButton}
               >
-                <Text>View {hostedEvents.length} events</Text>
+                <Text style={{ color: "white" }}>Cancel</Text>
               </Pressable>
             ) : (
-              <>
-                <Pressable
-                  onPress={() => {
-                    setHostedClicked(false);
-                  }}
-                >
-                  <Text>Hide {hostedEvents.length} events</Text>
-                </Pressable>
-                <ScrollView style={styles.eventListScroller}>
-                  {hostedEvents.map((event) => {
-                    return <EventCardUserPage currentEvent={event} />;
-                  })}
-                </ScrollView>
-              </>
-            )
-          ) : (
-            <Text>No hosted events</Text>
-          )}
-        </View>
-        <View style={styles.eventListBox}>
-          <Text>Attended:</Text>
-          {attendedEvents.length > 0 ? (
-            !attendedClicked ? (
               <Pressable
                 onPress={() => {
-                  setAttendedClicked(true);
+                  setEditClicked(true);
                 }}
+                style={styles.editButton}
               >
-                <Text>View {attendedEvents.length} events</Text>
+                <Text style={{ color: "white" }}>Edit</Text>
               </Pressable>
-            ) : (
-              <>
+            )}
+          </View>
+          <View style={styles.middlePartContainer}>
+            <View style={styles.pictureContainer}>
+              <Image source={require("../logo.jpg")} style={styles.avatar} />
+              <Pressable style={styles.uploadImage} onPress={() => {}}>
+                <Text style={{ color: "white" }}>Upload Photo</Text>
+              </Pressable>
+            </View>
+            <View style={styles.detailsContainer}>
+              {editClicked ? (
+                <TextInput
+                  placeholder="Display name..."
+                  style={styles.textInputDetails}
+                />
+              ) : (
+                <Text style={styles.displayName}>{user.displayName}</Text>
+              )}
+              {editClicked ? (
+                <TextInput placeholder="Pronouns..." style={styles.textInputDetails} />
+              ) : (
+                <Text style={styles.pronouns}>{user.pronouns}</Text>
+              )}
+              <Text style={styles.dateOfBirth}>{user.dateOfBirth}</Text>
+            </View>
+          </View>
+          <View style={styles.eventListBox}>
+            <Text>Hosted:</Text>
+            {hostedEvents.length > 0 ? (
+              !hostedClicked ? (
                 <Pressable
                   onPress={() => {
-                    setAttendedClicked(false);
+                    setHostedClicked(true);
                   }}
                 >
-                  <Text>Hide {attendedEvents.length} events</Text>
+                  <Text>View {hostedEvents.length} events</Text>
                 </Pressable>
-                <ScrollView style={styles.eventListScroller}>
-                  {attendedEvents.map((event) => {
-                    return <EventCardUserPage currentEvent={event} />;
-                  })}
-                </ScrollView>
-              </>
-            )
-          ) : (
-            <Text>No hosted events</Text>
-          )}
+              ) : (
+                <>
+                  <Pressable
+                    onPress={() => {
+                      setHostedClicked(false);
+                    }}
+                  >
+                    <Text>Hide {hostedEvents.length} events</Text>
+                  </Pressable>
+                  <ScrollView style={styles.eventListScroller}>
+                    {hostedEvents.map((event) => {
+                      return <EventCardUserPage currentEvent={event} />;
+                    })}
+                  </ScrollView>
+                </>
+              )
+            ) : (
+              <Text>No hosted events</Text>
+            )}
+          </View>
+          <View style={styles.eventListBox}>
+            <Text>Attended:</Text>
+            {attendedEvents.length > 0 ? (
+              !attendedClicked ? (
+                <Pressable
+                  onPress={() => {
+                    setAttendedClicked(true);
+                  }}
+                >
+                  <Text>View {attendedEvents.length} events</Text>
+                </Pressable>
+              ) : (
+                <>
+                  <Pressable
+                    onPress={() => {
+                      setAttendedClicked(false);
+                    }}
+                  >
+                    <Text>Hide {attendedEvents.length} events</Text>
+                  </Pressable>
+                  <ScrollView style={styles.eventListScroller}>
+                    {attendedEvents.map((event) => {
+                      return <EventCardUserPage currentEvent={event} />;
+                    })}
+                  </ScrollView>
+                </>
+              )
+            ) : (
+              <Text>No hosted events</Text>
+            )}
+          </View>
         </View>
       </View>
-    </View>
-  );
+    );
+  } else {
+    navigation.navigate("Login");
+    return <Text>You are not logged in!</Text>;
+  }
 };
 
 const styles = StyleSheet.create({

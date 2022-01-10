@@ -290,11 +290,11 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
   },
   mapContainer: {
-    flex: 3,
     flexDirection: "column",
     marginTop: 30,
     alignItems: "center",
     marginBottom: 10,
+    height: 350,
   },
   buttonContainer: {
     flex: 1,
