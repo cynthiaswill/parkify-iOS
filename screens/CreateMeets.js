@@ -80,6 +80,18 @@ export const CreateMeets = () => {
     });
   };
 
+  const onStartTimeChange = (event, selectedTime) => {
+    const currentDate = selectedTime || startTime;
+    setStartTime(selectedTime);
+    handleTimeChange();
+  };
+
+  const onEndTimeChange = (event, selectedTime) => {
+    const currentDate = selectedTime || startTime;
+    setEndTime(selectedTime);
+    handleTimeChange();
+  };
+
   const handleSubmit = () => {
     postEvent(user.token, formResult)
       .then((res) => {
@@ -164,7 +176,7 @@ export const CreateMeets = () => {
                   mode="datetime"
                   display="default"
                   is24Hour={true}
-                  onChange={handleTimeChange}
+                  onChange={onStartTimeChange}
                   style={styles.datePicker}
                 />
               </View>
@@ -173,9 +185,13 @@ export const CreateMeets = () => {
                 <Container.TextField
                   label="Start time:"
                   type="datetime-local"
-                  defaultValue={startTime.toISOString().slice(0, 16)}
+                  defaultValue={startTime}
                   InputLabelProps={{
                     shrink: true,
+                  }}
+                  onChange={(e) => {
+                    setStartTime(e.target.value);
+                    handleTimeChange();
                   }}
                 />
               </View>
@@ -194,7 +210,7 @@ export const CreateMeets = () => {
                   mode="datetime"
                   display="default"
                   is24Hour={true}
-                  onChange={handleTimeChange}
+                  onChange={onEndTimeChange}
                   style={styles.datePicker}
                 />
               </View>
@@ -203,9 +219,14 @@ export const CreateMeets = () => {
                 <Container.TextField
                   label="End time:"
                   type="datetime-local"
-                  defaultValue={endTime.toISOString().slice(0, 16)}
+                  defaultValue={endTime}
                   InputLabelProps={{
                     shrink: true,
+                  }}
+                  onChange={(e) => {
+                    console.log(endTime);
+                    setEndTime(e.target.value);
+                    handleTimeChange();
                   }}
                 />
               </View>
