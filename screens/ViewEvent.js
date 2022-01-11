@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Pressable,
   Image,
   Dimensions,
@@ -309,7 +308,7 @@ export const ViewEvent = () => {
 const styles = StyleSheet.create({
   wholePage: {
     width: windowWidth,
-    height: Number(parseInt(windowHeight)),
+    height: Number(parseInt(windowHeight) - 60),
   },
   contentsContainer: {
     flexDirection: "column",
@@ -432,7 +431,7 @@ const styles = StyleSheet.create({
   },
   slidingPanelLayoutStyle: {
     width: windowWidth,
-    height: Number(parseInt(windowHeight) - 100),
+    height: Number(parseInt(windowHeight) - 105),
     backgroundColor: "lightgrey",
     justifyContent: "center",
     alignItems: "center",
