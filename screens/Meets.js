@@ -282,7 +282,7 @@ export const Meets = () => {
 const styles = StyleSheet.create({
   wholePage: {
     width: windowWidth,
-    height: Number(parseInt(windowHeight) - 50),
+    height: Number(parseInt(windowHeight) - 60),
     backgroundColor: "lightgrey",
   },
   background: {
