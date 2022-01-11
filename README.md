@@ -47,23 +47,23 @@ $ npm install
 
 - on iOS iphone 13
 <div align="center">
-  <img src="./screenshots/ios0.png" height="250" title="login web">
-  <img <img src="./screenshots/ios2.png" height="250" title="signup web">
-  <img <img src="./screenshots/ios3.png" height="250" title="signup web">
-  <img <img src="./screenshots/ios4.png" height="250" title="signup web">
-  <img <img src="./screenshots/ios5.png" height="250" title="signup web">
-  <img <img src="./screenshots/ios6.png" height="250" title="signup web">
-  <img <img src="./screenshots/ios7.png" height="250" title="signup web">
+  <img src="./screenshots/ios0.png" height="200" title="login web">
+  <img src="./screenshots/ios2.png" height="200" title="signup web">
+  <img src="./screenshots/ios3.png" height="200" title="signup web">
+  <img src="./screenshots/ios4.png" height="200" title="signup web">
+  <img src="./screenshots/ios5.png" height="200" title="signup web">
+  <img src="./screenshots/ios6.png" height="200" title="signup web">
+  <img src="./screenshots/ios7.png" height="200" title="signup web">
 </div>
 - on web browser
 <div align="center">
-  <img src="./screenshots/web1.png" height="250" title="login web">
-  <img <img src="./screenshots/web2.png" height="250" title="signup web">
-  <img <img src="./screenshots/web3.png" height="250" title="signup web">
-  <img <img src="./screenshots/web4.png" height="250" title="signup web">
-  <img <img src="./screenshots/web5.png" height="250" title="signup web">
-  <img <img src="./screenshots/web6.png" height="250" title="signup web">
-  <img <img src="./screenshots/web7.png" height="250" title="signup web">
+  <img src="./screenshots/web1.png" height="200" title="login web">
+  <img src="./screenshots/web2.png" height="200" title="signup web">
+  <img src="./screenshots/web3.png" height="200" title="signup web">
+  <img src="./screenshots/web4.png" height="200" title="signup web">
+  <img src="./screenshots/web5.png" height="200" title="signup web">
+  <img src="./screenshots/web6.png" height="200" title="signup web">
+  <img src="./screenshots/web7.png" height="200" title="signup web">
 </div>
 
 #
