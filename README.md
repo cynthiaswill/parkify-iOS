@@ -22,27 +22,6 @@ a social meet-up app with live chat feature
 
 ---
 
-## How to use
-
-- To see a hosted version on web, visit: (**you have to refresh after you have choosing iphone X in developer mode, in your browser**)
-  for best experience, follow steps below to run natively on your phone or ios simulator.
-
-- the app is built using node version v16.3, it will work on any v16 based node versions, might not work on v17.
-
-- Clone the entire repo into a local folder, type 'npm install' in terminal to install all dependencies before running the app.
-
-```
-$ git clone https://github.com/cynthiaswill/parkify-iOS.git
-$ cd parkify-iOS
-$ npm install
-```
-
-- Type 'npm start' in terminal to start the app in browser. This will concurrently start both the server and the client (please check json script)
-
-- Alternatively you can use 'npm run server' to start chat server, then use 'expo start' to run the app, once expo started you can type 'i' for ios, 'w' for running in web browser, or 'a' to run as android.
-
----
-
 ## screenshots
 
 - on iOS iphone 13
@@ -66,7 +45,28 @@ $ npm install
   <img src="./screenshots/web7.png" height="220" title="signup web">
 </div>
 
-#
+---
+
+## How to use
+
+- To see a hosted version on web, visit: (**you have to refresh after you have choosing iphone X in developer mode, in your browser**)
+  for best experience, follow steps below to run natively on your phone or ios simulator.
+
+- the app is built using node version v16.3, it will work on any v16 based node versions, might not work on v17.
+
+- Clone the entire repo into a local folder, type 'npm install' in terminal to install all dependencies before running the app.
+
+```
+$ git clone https://github.com/cynthiaswill/parkify-iOS.git
+$ cd parkify-iOS
+$ npm install
+```
+
+- Type 'npm start' in terminal to start the app in browser. This will concurrently start both the server and the client (please check json script)
+
+- Alternatively you can use 'npm run server' to start chat server, then use 'expo start' to run the app, once expo started you can type 'i' for ios, 'w' for running in web browser, or 'a' to run as android.
+
+---
 
 ## User Stories
 
