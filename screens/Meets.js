@@ -7,6 +7,7 @@ import {
   Picker,
   ScrollView,
   Dimensions,
+  Platform,
 } from "react-native";
 import EventCard from "../components/EventCard.js";
 //import { getParks, getEvents, getCategories } from "../utils/api.js";
@@ -19,12 +20,22 @@ import { useContext } from "react";
 import { UserContext } from "../contexts/user-context.js";
 import MapView from "react-native-maps";
 import Categories from "../constants/Categories.js";
+import DropDownPicker from "react-native-dropdown-picker";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export const Meets = () => {
   const [categoryValue, setCategoryValue] = useState("All categories");
+  const [categories, setCategories] = useState([
+    { label: "All categories", value: "All categories" },
+    ...Categories.map((cat) => {
+      return {
+        label: cat.category_name,
+        value: cat.category_name,
+      };
+    }),
+  ]);
 
   const [joinedOptions, setJoinedOptions] = useState([
     { label: "All events", value: "All events" },
@@ -83,28 +94,46 @@ export const Meets = () => {
           style={styles.background}
         > */}
           <View style={styles.topSelectorRow}>
-            <Picker
-              style={styles.pickerStyle}
-              selectedValue={categoryValue}
-              onValueChange={(itemValue, itemIndex) => {
-                setCategoryValue(itemValue);
-              }}
-            >
-              <Picker.Item
-                key="All categories"
-                label="All categories"
-                value="All categories"
+            {Platform.OS === "ios" || Platform.OS === "android" ? (
+              <DropDownPicker
+                items={categories}
+                defaultValue="All categories"
+                onChangeItem={(item) => {
+                  setCategoryValue(item);
+                }}
+                containerStyle={styles.Picker}
+                style={{
+                  backgroundColor: "lightgrey",
+                  borderWidth: 1,
+                  borderColor: "white",
+                  width: 150,
+                }}
               />
-              {Categories.map((cat) => {
-                return (
-                  <Picker.Item
-                    key={cat.category_name}
-                    label={cat.category_name}
-                    value={cat.category_name}
-                  />
-                );
-              })}
-            </Picker>
+            ) : (
+              <Picker
+                style={styles.pickerStyle}
+                selectedValue={categoryValue}
+                onValueChange={(itemValue, itemIndex) => {
+                  setCategoryValue(itemValue);
+                }}
+              >
+                <Picker.Item
+                  key="All categories"
+                  label="All categories"
+                  value="All categories"
+                />
+                {Categories.map((cat) => {
+                  return (
+                    <Picker.Item
+                      key={cat.category_name}
+                      label={cat.category_name}
+                      value={cat.category_name}
+                    />
+                  );
+                })}
+              </Picker>
+            )}
+
             {/* <TextInput
             style={styles.dateInput}
             value={eventDate}
@@ -130,17 +159,34 @@ export const Meets = () => {
           />
           <Text>{eventDate.toString().substr(4, 12)}</Text> */}
 
-            <Picker
-              style={styles.pickerStyle}
-              selectedValue={joinedValue}
-              onValueChange={(itemValue, itemIndex) => setJoinedValue(itemValue)}
-            >
-              {joinedOptions.map((opt) => {
-                return (
-                  <Picker.Item key={opt.label} label={opt.label} value={opt.value} />
-                );
-              })}
-            </Picker>
+            {Platform.OS === "ios" || Platform.OS === "android" ? (
+              <DropDownPicker
+                items={joinedOptions}
+                defaultValue="All events"
+                onChangeItem={(item) => {
+                  setJoinedValue(item);
+                }}
+                containerStyle={styles.Picker}
+                style={{
+                  backgroundColor: "lightgrey",
+                  borderWidth: 1,
+                  borderColor: "white",
+                  width: 150,
+                }}
+              />
+            ) : (
+              <Picker
+                style={styles.pickerStyle}
+                selectedValue={joinedValue}
+                onValueChange={(itemValue, itemIndex) => setJoinedValue(itemValue)}
+              >
+                {joinedOptions.map((opt) => {
+                  return (
+                    <Picker.Item key={opt.label} label={opt.label} value={opt.value} />
+                  );
+                })}
+              </Picker>
+            )}
           </View>
           <View style={styles.secondRowContainer}>
             <Pressable
@@ -160,32 +206,30 @@ export const Meets = () => {
               )}
             </Pressable>
             {mapOpened ? (
-              <View>
-                <View style={styles.mapContainer}>
-                  <MapView
-                    style={styles.map}
-                    initialRegion={{
-                      latitude: 53.47791641806832,
-                      longitude: -2.242188787189367,
-                      latitudeDelta: 0.4522,
-                      longitudeDelta: 1.1421,
-                    }}
-                  >
-                    {events.map((eachEvent) => {
-                      return (
-                        <MapView.Marker
-                          key={eachEvent.title}
-                          title={eachEvent.title}
-                          description={eachEvent.description}
-                          coordinate={{
-                            latitude: eachEvent.location.latitude,
-                            longitude: eachEvent.location.longitude,
-                          }}
-                        />
-                      );
-                    })}
-                  </MapView>
-                </View>
+              <View style={styles.mapContainer}>
+                <MapView
+                  style={styles.map}
+                  initialRegion={{
+                    latitude: 53.47791641806832,
+                    longitude: -2.242188787189367,
+                    latitudeDelta: 0.4522,
+                    longitudeDelta: 1.1421,
+                  }}
+                >
+                  {events.map((eachEvent) => {
+                    return (
+                      <MapView.Marker
+                        key={eachEvent.title}
+                        title={eachEvent.title}
+                        description={eachEvent.description}
+                        coordinate={{
+                          latitude: eachEvent.location.latitude,
+                          longitude: eachEvent.location.longitude,
+                        }}
+                      />
+                    );
+                  })}
+                </MapView>
               </View>
             ) : null}
           </View>
@@ -247,8 +291,11 @@ const styles = StyleSheet.create({
   },
 
   topSelectorRow: {
+    marginTop: 10,
+    height: 35,
     flexDirection: "row",
     justifyContent: "space-evenly",
+    zIndex: 5000,
   },
   pickerStyle: {
     height: 25,
@@ -269,9 +316,11 @@ const styles = StyleSheet.create({
   },
 
   secondRowContainer: {
-    marginTop: 25,
+    marginTop: 15,
+    marginBottom: 5,
     flexDirection: "column",
     justifyContent: "center",
+    height: 350,
   },
   button: {
     alignItems: "center",
