@@ -8,7 +8,8 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "server": "node ./server/server",
-    "start": "concurrently \"npm run server\" \"npm run web\" "
+    "start": "concurrently \"npm run server\" \"npm run web\" \"webpack-dev-server --config ./webpack.config.js --mode development\" ",
+    "build": "webpack --mode production"
   },
   "dependencies": {
     "@expo-google-fonts/roboto": "^0.2.0",
@@ -50,7 +51,8 @@
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
-    "@expo/webpack-config": "^0.16.12"
+    "@expo/webpack-config": "^0.16.12",
+    "webpack-cli": "^4.9.1"
   },
   "private": true
 }
