@@ -98,6 +98,7 @@ export default function Chat() {
                         borderRadius: 10,
                         padding: 10,
                         color: "white",
+                        overflow: "hidden",
                       }}
                     >
                       {msg.messageBody}
@@ -121,6 +122,7 @@ export default function Chat() {
                         borderRadius: 10,
                         padding: 10,
                         color: "white",
+                        overflow: "hidden",
                       }}
                     >
                       {msg.messageBody}{" "}
@@ -190,7 +192,7 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     maxWidth: 250,
     paddingLeft: 5,
-    borderRadius: 5,
+    overflow: "hidden",
     flexDirection: "column",
     marginVertical: 5,
   },
