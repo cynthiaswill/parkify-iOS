@@ -4,11 +4,11 @@ a social meet-up app with live chat feature
 
 - The app was originally one of my group project (that app called frosty) while I was doing my nothcoders bootcamp, which built by team of 4, in which we have been pair programming throughout and I was involved in every aspect of frontend build, as well as building both the frontend and backend of the live chat component with socketIO.
 
-- The group project was a web only app, so I started this project to port it into an mobile app which will run on both iOS and android, as well as any web browsers. I am also planning to built a serverless backend to replace the original backend, and also expand to some extra features.
+- The group project was a web only app, so I started this project to port it into an mobile app which will run on both iOS and android, as well as any web browsers. I am also planning to built a serverless backend to replace the original backend(at https://github.com/cynthiaswill/FrostyBackEnd.git), and also expand to some extra features.
 
 ## App versions
 
-- The app is mostly done but it is **still in progress**, there is a web version which is hosted at:
+- The app is mostly done but it is **still in progress**.
 
 - The web version has only been tested when running in iphone X mode. (**you have to refresh after you have choosing iphone X in developer mode, in your browser**)
 
@@ -49,8 +49,7 @@ a social meet-up app with live chat feature
 
 ## How to use
 
-- To see a hosted version on web, visit: (**you have to refresh after you have choosing iphone X in developer mode, in your browser**)
-  for best experience, follow steps below to run natively on your phone or ios simulator.
+- for best experience, follow steps below to run natively on your phone or ios simulator.
 
 - the app is built using node version v16.3, it will work on any v16 based node versions, might not work on v17.
 
