@@ -43,6 +43,8 @@ export const CreateMeets = () => {
   const [error, setError] = useState(null);
   const [startTime, setStartTime] = useState(new Date());
   const [endTime, setEndTime] = useState(new Date());
+  const [start, setStart] = useState(startTime.toISOString().slice(0, 16));
+  const [end, setEnd] = useState(endTime.toISOString().slice(0, 16));
 
   const handleFormInput = (text, keyToChange) => {
     setFormResult((prev) => {
@@ -74,8 +76,22 @@ export const CreateMeets = () => {
   const handleTimeChange = () => {
     setFormResult((prev) => {
       const newState = { ...prev };
+      console.log(start, "<<<start", end, "<<<end");
+      newState.eventStart = start;
+      newState.eventEnd = end;
+      console.log(formResult);
+      return newState;
+    });
+  };
+
+  const handleIOSTimeChange = () => {
+    setFormResult((prev) => {
+      const newState = { ...prev };
+      console.log(startTime, "<<<start", endTime, "<<<end");
+      console.log(typeof startTime);
       newState.eventStart = startTime.toISOString().slice(0, 16);
       newState.eventEnd = endTime.toISOString().slice(0, 16);
+      console.log(formResult);
       return newState;
     });
   };
@@ -83,13 +99,13 @@ export const CreateMeets = () => {
   const onStartTimeChange = (event, selectedTime) => {
     const currentDate = selectedTime || startTime;
     setStartTime(selectedTime);
-    handleTimeChange();
+    handleIOSTimeChange();
   };
 
   const onEndTimeChange = (event, selectedTime) => {
     const currentDate = selectedTime || startTime;
     setEndTime(selectedTime);
-    handleTimeChange();
+    handleIOSTimeChange();
   };
 
   const handleSubmit = () => {
@@ -185,12 +201,12 @@ export const CreateMeets = () => {
                 <Container.TextField
                   label="Start time:"
                   type="datetime-local"
-                  defaultValue={startTime}
+                  defaultValue={start}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={(e) => {
-                    setStartTime(e.target.value);
+                    setStart(e.target.value);
                     handleTimeChange();
                   }}
                 />
@@ -219,13 +235,13 @@ export const CreateMeets = () => {
                 <Container.TextField
                   label="End time:"
                   type="datetime-local"
-                  defaultValue={endTime}
+                  defaultValue={end}
                   InputLabelProps={{
                     shrink: true,
                   }}
                   onChange={(e) => {
-                    console.log(endTime);
-                    setEndTime(e.target.value);
+                    console.log(end);
+                    setEnd(e.target.value);
                     handleTimeChange();
                   }}
                 />
