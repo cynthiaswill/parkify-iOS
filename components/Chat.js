@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
   chatRoomContainer: {
     flexDirection: "column",
     height: Number(parseInt(windowHeight) - 100),
+    overflow: "hidden",
   },
   chat: {
     width: windowWidth,
@@ -180,6 +181,7 @@ const styles = StyleSheet.create({
     overflow: "visible",
     flexDirection: "column",
     width: windowWidth,
+    overflow: "hidden",
   },
   message: {
     marginLeft: 0,
