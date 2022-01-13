@@ -79,7 +79,7 @@ export const ViewUser = () => {
                 </Pressable>
                 <ScrollView style={styles.eventListScroller}>
                   {hostedEvents.map((event) => {
-                    return <EventCardUserPage currentEvent={event} />;
+                    return <EventCardUserPage key={event.title} currentEvent={event} />;
                   })}
                 </ScrollView>
               </>

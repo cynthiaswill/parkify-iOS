@@ -112,7 +112,7 @@ export const UserPage = () => {
                   </Pressable>
                   <ScrollView style={styles.eventListScroller}>
                     {hostedEvents.map((event) => {
-                      return <EventCardUserPage currentEvent={event} />;
+                      return <EventCardUserPage key={event.title} currentEvent={event} />;
                     })}
                   </ScrollView>
                 </>
@@ -143,7 +143,7 @@ export const UserPage = () => {
                   </Pressable>
                   <ScrollView style={styles.eventListScroller}>
                     {attendedEvents.map((event) => {
-                      return <EventCardUserPage currentEvent={event} />;
+                      return <EventCardUserPage key={event.title} currentEvent={event} />;
                     })}
                   </ScrollView>
                 </>
