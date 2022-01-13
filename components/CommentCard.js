@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { View, Text, StyleSheet, Pressable } from "react-native";
 import { UserContext } from "../contexts/user-context.js";
 import { EventContext } from "../contexts/event-context.js";
-import { getUsers } from "../utils/frosty-api";
+import { getUsers } from "../utils/api";
 import { ViewedUserContext } from "../contexts/viewed-user-context.js";
 import { useNavigation } from "@react-navigation/native";
 

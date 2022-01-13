@@ -16,23 +16,28 @@ export const getProfile = (token) => {
   });
 };
 
-export const getUsers = () => {
-  return frostyApi.get("/users");
-};
+// export const getUsers = () => {
+//   return frostyApi.get("/users");
+// };
+
 export const getUsers = (token) => {
   return frostyApi.get("/users", { headers: { "x-auth-token": token } });
 };
+
 export const getUser = (token, username) => {
   return frostyApi.get(`/users/${username}`, {
     headers: { "x-auth-token": token },
   });
 };
+
 export const getCategories = () => {
   return frostyApi.get("/categories");
 };
+
 export const getParks = () => {
   return frostyApi.get("/parks");
 };
+
 export const getComments = (token, id) => {
   return frostyApi.get(`/comments/event/${id}`, {
     headers: { "x-auth-token": token },
