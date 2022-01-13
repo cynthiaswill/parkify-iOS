@@ -4,6 +4,7 @@ import {
   Text,
   StyleSheet,
   TextInput,
+  Platform,
   Pressable,
   Image,
   ScrollView,
@@ -13,6 +14,7 @@ import { UserContext } from "../contexts/user-context.js";
 import { useNavigation } from "@react-navigation/native";
 import { getProfile } from "../utils/frosty-api";
 import EventCardUserPage from "../components/EventCardUserPage";
+import Container from "../components/Container";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
@@ -75,19 +77,44 @@ export const UserPage = () => {
             </View>
             <View style={styles.detailsContainer}>
               {editClicked ? (
-                <TextInput
-                  placeholder="Display name..."
-                  style={styles.textInputDetails}
-                />
+                <>
+                  {Platform.OS === "ios" || Platform.OS === "android" ? (
+                    <Container.TextField
+                      // onChangeText={}
+                      label="Display name:"
+                      containerStyle={{
+                        width: 150,
+                      }}
+                    />
+                  ) : (
+                    <Container.TextField
+                      // onChange={(e) => {}}
+                      label="Display name:"
+                    />
+                  )}
+                </>
               ) : (
                 <Text style={styles.displayName}>{user.displayName}</Text>
               )}
               {editClicked ? (
-                <TextInput placeholder="Pronouns..." style={styles.textInputDetails} />
+                <>
+                  {Platform.OS === "ios" || Platform.OS === "android" ? (
+                    <Container.TextField
+                      // onChangeText={}
+                      label="Pronouns:"
+                      containerStyle={{ width: 150 }}
+                    />
+                  ) : (
+                    <Container.TextField
+                      // onChange={(e) => {}}
+                      label="Pronouns:"
+                    />
+                  )}
+                </>
               ) : (
                 <Text style={styles.pronouns}>{user.pronouns}</Text>
               )}
-              <Text style={styles.dateOfBirth}>{user.dateOfBirth}</Text>
+              <Text style={styles.dateOfBirth}>DoB: {user.dateOfBirth}</Text>
             </View>
           </View>
           <View style={styles.eventListBox}>
@@ -208,7 +235,6 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   detailsContainer: {
-    marginTop: 20,
     marginLeft: 20,
     flex: 1,
     flexDirection: "column",
@@ -223,12 +249,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   pronouns: {
+    marginTop: 10,
     height: 40,
     fontSize: 20,
   },
   dateOfBirth: {
+    marginTop: 10,
     height: 40,
-    fontSize: 20,
+    fontSize: 17,
   },
   textInputDetails: {
     height: 30,
