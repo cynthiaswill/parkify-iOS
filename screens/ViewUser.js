@@ -66,7 +66,15 @@ export const ViewUser = () => {
                   setHostedClicked(true);
                 }}
               >
-                <Text>View {hostedEvents.length} events</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text>{hostedEvents.length} events</Text>
+                  <Text>View </Text>
+                </View>
               </Pressable>
             ) : (
               <>
@@ -75,7 +83,15 @@ export const ViewUser = () => {
                     setHostedClicked(false);
                   }}
                 >
-                  <Text>Hide {hostedEvents.length} events</Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text>{hostedEvents.length} events</Text>
+                    <Text>Hide</Text>
+                  </View>
                 </Pressable>
                 <ScrollView style={styles.eventListScroller}>
                   {hostedEvents.map((event) => {
@@ -97,7 +113,15 @@ export const ViewUser = () => {
                   setAttendedClicked(true);
                 }}
               >
-                <Text>View {attendedEvents.length} events</Text>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  }}
+                >
+                  <Text>{attendedEvents.length} events</Text>
+                  <Text>View </Text>
+                </View>
               </Pressable>
             ) : (
               <>
@@ -106,11 +130,19 @@ export const ViewUser = () => {
                     setAttendedClicked(false);
                   }}
                 >
-                  <Text>Hide {attendedEvents.length} events</Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text>{attendedEvents.length} events</Text>
+                    <Text>Hide </Text>
+                  </View>
                 </Pressable>
                 <ScrollView style={styles.eventListScroller}>
                   {attendedEvents.map((event) => {
-                    return <EventCardUserPage currentEvent={event} />;
+                    return <EventCardUserPage key={event.title} currentEvent={event} />;
                   })}
                 </ScrollView>
               </>
@@ -131,8 +163,8 @@ const styles = StyleSheet.create({
     backgroundColor: "lightgrey",
   },
   pageContainer: {
-    padding: 15,
-    margin: 5,
+    paddingHorizontal: 15,
+    marginHorizontal: 5,
   },
   arrow: {
     fontSize: 30,
@@ -158,7 +190,7 @@ const styles = StyleSheet.create({
   firstRowContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    marginBottom: 25,
+    marginBottom: 10,
   },
   middlePartContainer: {
     flexDirection: "row",
@@ -205,7 +237,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   eventListScroller: {
-    borderWidth: 1,
     borderRadius: 5,
     maxHeight: 200,
   },
