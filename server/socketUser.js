@@ -10,8 +10,6 @@ function join_User(id, username, title) {
   return p_user;
 }
 
-console.log("user out", c_users);
-
 function get_Current_User(id) {
   return c_users.find((p_user) => p_user.id === id);
 }
