@@ -3,16 +3,14 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Pressable,
   Image,
   Dimensions,
   ScrollView,
 } from "react-native";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
+import { useNavigation } from "@react-navigation/native";
 import { ViewedUserContext } from "../contexts/viewed-user-context.js";
 import { UserContext } from "../contexts/user-context.js";
-import { getUser } from "../utils/nh-api.js";
 import EventCardUserPage from "../components/EventCardUserPage";
 import { MaterialIcons } from "@expo/vector-icons";
 
@@ -22,12 +20,10 @@ const windowHeight = Dimensions.get("window").height;
 export const ViewUser = () => {
   const { viewedUser } = useContext(ViewedUserContext);
   const { user } = useContext(UserContext);
-
   const [hostedEvents, setHostedEvents] = useState([]);
   const [attendedEvents, setAttendedEvents] = useState([]);
   const [hostedClicked, setHostedClicked] = useState(true);
   const [attendedClicked, setAttendedClicked] = useState(true);
-
   const navigation = useNavigation();
 
   useEffect(() => {

@@ -5,7 +5,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Pressable,
   Image,
   Dimensions,

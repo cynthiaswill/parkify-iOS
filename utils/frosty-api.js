@@ -16,10 +16,6 @@ export const getProfile = (token) => {
   });
 };
 
-// export const getUsers = () => {
-//   return frostyApi.get("/users");
-// };
-
 export const getUsers = (token) => {
   return frostyApi.get("/users", { headers: { "x-auth-token": token } });
 };
@@ -82,4 +78,12 @@ export const leaveEvent = (token, event_id) => {
       headers: { "x-auth-token": token },
     }
   );
+};
+
+export const getUserByUsername = (username) => {
+  return frostyApi.get(`/users/${username}`);
+};
+
+export const deleteEvent = (id) => {
+  return frostyApi.delete(`/events/${id}/`);
 };

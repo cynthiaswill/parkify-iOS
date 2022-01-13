@@ -1,13 +1,4 @@
-import React, { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Image,
-  Pressable,
-  Dimensions,
-} from "react-native";
+import { View, Text, StyleSheet, Image, Pressable, Dimensions } from "react-native";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;

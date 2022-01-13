@@ -10,8 +10,7 @@ import {
   Platform,
 } from "react-native";
 import EventCard from "../components/EventCard.js";
-//import { getParks, getEvents, getCategories } from "../utils/api.js";
-import { getEvents } from "../utils/nh-api.js";
+import { getEvents } from "../utils/frosty-api";
 import { useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { ViewEvent } from "./ViewEvent.js";
@@ -88,11 +87,6 @@ export const Meets = () => {
     if (user) {
       return (
         <View style={styles.wholePage}>
-          {/* <ImageBackground
-          source={"https://i.makeagif.com/media/8-27-2015/1NpjsX.gif"}
-          resizeMode="cover"
-          style={styles.background}
-        > */}
           <View style={styles.topSelectorRow}>
             {Platform.OS === "ios" || Platform.OS === "android" ? (
               <DropDownPicker
@@ -133,31 +127,6 @@ export const Meets = () => {
                 })}
               </Picker>
             )}
-
-            {/* <TextInput
-            style={styles.dateInput}
-            value={eventDate}
-            onChangeText={setEventDate}
-            placeholder="DD/MM/YYYY"
-          /> */}
-
-            {/* <DatePicker
-            defaultDate={new Date(2021, 4, 4)}
-            minimumDate={new Date(2021, 1, 1)}
-            maximumDate={new Date(2021, 12, 31)}
-            locale={"en"}
-            timeZoneOffsetInMinutes={undefined}
-            modalTransparent={false}
-            animationType={"fade"}
-            androidMode={"default"}
-            placeHolderText="Select date"
-            textStyle={{ color: "green" }}
-            placeHolderTextStyle={{ color: "#d3d3d3" }}
-            disabled={false}
-            onChange={setEventDate}
-            value={eventDate}
-          />
-          <Text>{eventDate.toString().substr(4, 12)}</Text> */}
 
             {Platform.OS === "ios" || Platform.OS === "android" ? (
               <DropDownPicker
@@ -249,7 +218,6 @@ export const Meets = () => {
               })
             )}
           </ScrollView>
-          {/* </ImageBackground> */}
         </View>
       );
     } else {

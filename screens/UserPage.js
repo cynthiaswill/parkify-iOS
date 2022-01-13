@@ -10,8 +10,8 @@ import {
   Dimensions,
 } from "react-native";
 import { UserContext } from "../contexts/user-context.js";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-import { getProfile } from "../utils/nh-api.js";
+import { useNavigation } from "@react-navigation/native";
+import { getProfile } from "../utils/frosty-api";
 import EventCardUserPage from "../components/EventCardUserPage";
 
 const windowWidth = Dimensions.get("window").width;

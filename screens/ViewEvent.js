@@ -8,21 +8,22 @@ import {
   Dimensions,
   ScrollView,
 } from "react-native";
-import { useFocusEffect, useNavigation } from "@react-navigation/native";
-
+import { useNavigation } from "@react-navigation/native";
 import Categories from "../constants/Categories.js";
-
 import { EventContext } from "../contexts/event-context.js";
 import { UserContext } from "../contexts/user-context.js";
 import { ViewedUserContext } from "../contexts/viewed-user-context.js";
-import { getComments } from "../utils/nh-api.js";
+import {
+  getComments,
+  getUser,
+  deleteEvent,
+  joinEvent,
+  leaveEvent,
+} from "../utils/frosty-api";
 import CommentCard from "../components/CommentCard";
 import SlidingPanel from "react-native-sliding-up-down-panels";
 import Chat from "../components/Chat";
-import { deleteEvent } from "../utils/YizApi.js";
-import { getUser } from "../utils/nh-api.js";
 import MapView from "react-native-maps";
-import { joinEvent, leaveEvent } from "../utils/YizApi";
 import { MaterialIcons } from "@expo/vector-icons";
 
 const windowWidth = Dimensions.get("window").width;
@@ -59,14 +60,6 @@ export const ViewEvent = () => {
     }
   }, [event]);
 
-  // useFocusEffect(
-  //   React.useCallback(() => {
-  //     return () => {
-  //       navigation.goBack();
-  //     };
-  //   }, [])
-  // );
-
   return (
     <View
       style={{
@@ -75,7 +68,7 @@ export const ViewEvent = () => {
       showsVerticalScrollIndicator={false}
     >
       <ScrollView style={styles.contentsContainer} showsVerticalScrollIndicator={false}>
-        <View style={styles.backContainer}>
+        <View>
           <Pressable
             style={styles.backButton}
             onPress={() => {

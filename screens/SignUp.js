@@ -8,7 +8,7 @@ import {
   Dimensions,
   Platform,
 } from "react-native";
-import { postNewUser } from "../utils/nh-api";
+import { postNewUser } from "../utils/frosty-api";
 import { UserContext } from "../contexts/user-context";
 import { MaterialIcons } from "@expo/vector-icons";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -31,47 +31,6 @@ export const SignUp = ({ navigation }) => {
     dateOfBirth: "01/01/2000",
   });
   const [date, setDate] = useState(new Date("2000-01-01"));
-
-  // const SERVER_URL = "http://localhost:3000";
-
-  // const createFormData = (photo, body = {}) => {
-  //   const data = new FormData();
-
-  //   data.append("photo", {
-  //     name: photo.fileName,
-  //     type: photo.type,
-  //     uri: Platform.OS === "ios" ? photo.uri.replace("file://", "") : photo.uri,
-  //   });
-
-  //   Object.keys(body).forEach((key) => {
-  //     data.append(key, body[key]);
-  //   });
-
-  //   return data;
-  // };
-
-  const handleChoosePhoto = () => {
-    // launchImageLibrary({ noData: true }, (response) => {
-    //   // console.log(response);
-    //   if (response) {
-    //     setPhoto(response);
-    //   }
-    // });
-  };
-
-  const handleUploadPhoto = () => {
-    // fetch(`${SERVER_URL}/api/upload`, {
-    //   method: "POST",
-    //   body: createFormData(photo, { userId: "123" }),
-    // })
-    //   .then((response) => response.json())
-    //   .then((response) => {
-    //     console.log("response", response);
-    //   })
-    //   .catch((error) => {
-    //     console.log("error", error);
-    //   });
-  };
 
   const handleFormChanges = (text, keyToChange) => {
     setNewUser((prevState) => {
@@ -107,7 +66,6 @@ export const SignUp = ({ navigation }) => {
             ...User,
             token: token,
           });
-          console.log(user);
           navigation.navigate("User Page");
         })
         .catch((err) => {
@@ -125,7 +83,6 @@ export const SignUp = ({ navigation }) => {
       dateString.slice(5, 7) +
       "/" +
       dateString.slice(0, 4);
-    console.log(newValue);
     handleFormChanges(newValue, "dateOfBirth");
   };
 
@@ -139,7 +96,6 @@ export const SignUp = ({ navigation }) => {
       dateString.slice(5, 7) +
       "/" +
       dateString.slice(0, 4);
-    console.log(newValue);
     handleFormChanges(newValue, "dateOfBirth");
   };
 

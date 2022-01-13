@@ -4,7 +4,7 @@ import { View, Text, StyleSheet, Pressable, Dimensions, Platform } from "react-n
 import MapView from "react-native-maps";
 import MapMarkers from "../constants/MapMarkers.js";
 import Categories from "../constants/Categories.js";
-import { postEvent } from "../utils/nh-api.js";
+import { postEvent } from "../utils/frosty-api";
 import { UserContext } from "../contexts/user-context.js";
 import { EventContext } from "../contexts/event-context.js";
 import DropDownPicker from "react-native-dropdown-picker";
@@ -16,8 +16,7 @@ const windowHeight = Dimensions.get("window").height;
 
 export const CreateMeets = () => {
   const { user } = useContext(UserContext);
-  const { event, setEvent } = useContext(EventContext);
-  const [open, setOpen] = useState(false);
+  const { setEvent } = useContext(EventContext);
   const [categoryValue, setCategoryValue] = useState(null);
   const [categories, setCategories] = useState([
     ...Categories.map((cat) => {
@@ -76,10 +75,8 @@ export const CreateMeets = () => {
   const handleTimeChange = () => {
     setFormResult((prev) => {
       const newState = { ...prev };
-      console.log(start, "<<<start", end, "<<<end");
       newState.eventStart = start;
       newState.eventEnd = end;
-      console.log(formResult);
       return newState;
     });
   };
@@ -87,11 +84,8 @@ export const CreateMeets = () => {
   const handleIOSTimeChange = () => {
     setFormResult((prev) => {
       const newState = { ...prev };
-      console.log(startTime, "<<<start", endTime, "<<<end");
-      console.log(typeof startTime);
       newState.eventStart = startTime.toISOString().slice(0, 16);
       newState.eventEnd = endTime.toISOString().slice(0, 16);
-      console.log(formResult);
       return newState;
     });
   };
@@ -117,8 +111,6 @@ export const CreateMeets = () => {
         setError(err.response.data.message);
       });
   };
-
-  // const uploadEventImage = () => {};
 
   useEffect(() => {
     if (!user) {
@@ -240,7 +232,6 @@ export const CreateMeets = () => {
                     shrink: true,
                   }}
                   onChange={(e) => {
-                    console.log(end);
                     setEnd(e.target.value);
                     handleTimeChange();
                   }}
@@ -289,15 +280,6 @@ export const CreateMeets = () => {
         {error ? <Text style={styles.error}>{error}</Text> : null}
       </View>
       <View style={styles.buttonContainer}>
-        {/* <Pressable
-            style={styles.button}
-            onPress={() => {
-              uploadEventImage;
-            }}
-          >
-            <Text style={styles.buttonText}>Upload Image</Text>
-          </Pressable> */}
-
         <Pressable
           style={styles.button}
           onPress={() => {
