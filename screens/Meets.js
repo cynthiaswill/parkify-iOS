@@ -260,7 +260,7 @@ const styles = StyleSheet.create({
 
   topSelectorRow: {
     marginTop: 10,
-    height: 35,
+    height: 40,
     flexDirection: "row",
     justifyContent: "space-evenly",
     zIndex: 5000,
