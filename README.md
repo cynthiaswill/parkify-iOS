@@ -65,6 +65,8 @@ $ npm install
 
 - Alternatively you can use 'npm run server' to start chat server, then use 'expo start' to run the app, once expo started you can type 'i' for ios, 'w' for running in web browser, or 'a' to run as android.
 
+- You can use username "yi" with password "123" to login, or you can create a new account.
+
 ---
 
 ## User Stories
