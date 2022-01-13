@@ -16,7 +16,6 @@ export const getHistory = (title) => {
 };
 
 export const joinEvent = (token, event_id) => {
-  console.log(token);
   return frostyApi.post(
     `events/${event_id}/perticipate`,
     {},

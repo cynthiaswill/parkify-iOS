@@ -1,15 +1,7 @@
-import React, { useState, useContext } from "react";
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
-import { UserContext } from "../contexts/user-context.js";
-
-import { useNavigation } from "@react-navigation/native";
-
+import { View, Text, StyleSheet, Image } from "react-native";
 import Categories from "../constants/Categories.js";
 
 export default function EventCardUserPage({ currentEvent }) {
-  // const Stack = createNativeStackNavigator();
-  //   const navigation = useNavigation();
-  console.log(currentEvent);
   return (
     <View style={styles.cardContainer}>
       <View style={styles.mainContainer}>

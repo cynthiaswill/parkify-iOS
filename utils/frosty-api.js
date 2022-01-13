@@ -15,6 +15,10 @@ export const getProfile = (token) => {
     headers: { "x-auth-token": token },
   });
 };
+
+export const getUsers = () => {
+  return frostyApi.get("/users");
+};
 export const getUsers = (token) => {
   return frostyApi.get("/users", { headers: { "x-auth-token": token } });
 };
@@ -49,4 +53,28 @@ export const postEvent = (token, newEvent) => {
   return frostyApi.post("/events", newEvent, {
     headers: { "x-auth-token": token },
   });
+};
+
+export const getHistory = (title) => {
+  return frostyApi.get(`/chat/${title}`);
+};
+
+export const joinEvent = (token, event_id) => {
+  return frostyApi.post(
+    `events/${event_id}/perticipate`,
+    {},
+    {
+      headers: { "x-auth-token": token },
+    }
+  );
+};
+
+export const leaveEvent = (token, event_id) => {
+  return frostyApi.delete(
+    `events/${event_id}/perticipate`,
+
+    {
+      headers: { "x-auth-token": token },
+    }
+  );
 };

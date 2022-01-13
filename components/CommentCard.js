@@ -1,8 +1,8 @@
 import React, { useState, useContext } from "react";
-import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import { View, Text, StyleSheet, Pressable } from "react-native";
 import { UserContext } from "../contexts/user-context.js";
 import { EventContext } from "../contexts/event-context.js";
-import { getUsers } from "../utils/api";
+import { getUsers } from "../utils/frosty-api";
 import { ViewedUserContext } from "../contexts/viewed-user-context.js";
 import { useNavigation } from "@react-navigation/native";
 
@@ -18,9 +18,7 @@ export default function CommentCard({ comment }) {
       <View style={styles.topRow}>
         <Pressable
           onPress={() => {
-            // ***
             // Having to filter users as there's no endpoint to get user by username
-            // ***
             getUsers()
               .then((res) => {
                 const correctUser = res.data.users.filter((person) => {
@@ -31,9 +29,6 @@ export default function CommentCard({ comment }) {
               .then(() => {
                 return navigation.navigate("ViewUser");
               });
-            // ***
-            // ***
-            // ***
           }}
         >
           {" "}

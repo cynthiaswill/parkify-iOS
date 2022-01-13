@@ -2,22 +2,15 @@ import React, { useEffect, useState, useContext } from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { UserContext } from "../contexts/user-context.js";
 import { EventContext } from "../contexts/event-context.js";
-import { ViewedUserContext } from "../contexts/viewed-user-context.js";
-import { joinEvent, leaveEvent } from "../utils/YizApi";
-
+import { joinEvent, leaveEvent } from "../utils/frosty-api";
 import { useNavigation } from "@react-navigation/native";
-import { withSafeAreaInsets } from "react-native-safe-area-context";
-
 import Categories from "../constants/Categories.js";
 
 export default function EventCard({ currentEvent, setJoinedClicked }) {
   const [toggleOn, setToggleOn] = useState(false);
-  const { user, setUser } = useContext(UserContext);
+  const { user } = useContext(UserContext);
   const { event, setEvent } = useContext(EventContext);
 
-  // const { viewedUser, setViewedUser } = useContext(ViewedUserContext);
-
-  // const Stack = createNativeStackNavigator();
   const navigation = useNavigation();
   const [joined, setJoined] = useState(false);
 

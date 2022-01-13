@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  Image,
   Pressable,
   TextInput,
   Dimensions,
@@ -12,26 +11,24 @@ import {
 import { UserContext } from "../contexts/user-context.js";
 import { EventContext } from "../contexts/event-context.js";
 import io from "socket.io-client";
-import { getHistory } from "../utils/YizApi";
+import { getHistory } from "../utils/frosty-api";
 
 const socket = io("localhost:8000");
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 
 export default function Chat() {
-  const { user, setUser } = useContext(UserContext);
-  const { event, setEvent } = useContext(EventContext);
+  const { user } = useContext(UserContext);
+  const { event } = useContext(EventContext);
   const [messages, setMessages] = useState([]);
   const [messageBody, setMessageBody] = useState("");
 
   const scrollRef = useRef();
   let username = user.username;
   let title = event.title;
-  console.log(title);
 
   getHistory(title)
     .then(({ data }) => {
-      console.log(data);
       setMessages([...data.messages]);
     })
     .catch((err) => {
@@ -58,16 +55,12 @@ export default function Chat() {
     });
   }, [setMessages]);
 
-  console.log(messageBody, "<<<<<<<<<<<<<<<<");
-
   const sendData = () => {
     if (messageBody !== "") {
       socket.emit("chat", messageBody);
       setMessageBody("");
     }
   };
-
-  console.log(messages, "messages");
 
   return (
     <View style={styles.chatRoomContainer}>
