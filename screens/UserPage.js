@@ -3,7 +3,6 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   Platform,
   Pressable,
   Image,
@@ -126,7 +125,15 @@ export const UserPage = () => {
                     setHostedClicked(true);
                   }}
                 >
-                  <Text>View {hostedEvents.length} events</Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text>{hostedEvents.length} events</Text>
+                    <Text>View</Text>
+                  </View>
                 </Pressable>
               ) : (
                 <>
@@ -135,7 +142,15 @@ export const UserPage = () => {
                       setHostedClicked(false);
                     }}
                   >
-                    <Text>Hide {hostedEvents.length} events</Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Text>{hostedEvents.length} events</Text>
+                      <Text>Hide</Text>
+                    </View>
                   </Pressable>
                   <ScrollView style={styles.eventListScroller}>
                     {hostedEvents.map((event) => {
@@ -157,7 +172,15 @@ export const UserPage = () => {
                     setAttendedClicked(true);
                   }}
                 >
-                  <Text>View {attendedEvents.length} events</Text>
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Text> {attendedEvents.length} events</Text>
+                    <Text>View </Text>
+                  </View>
                 </Pressable>
               ) : (
                 <>
@@ -166,7 +189,15 @@ export const UserPage = () => {
                       setAttendedClicked(false);
                     }}
                   >
-                    <Text>Hide {attendedEvents.length} events</Text>
+                    <View
+                      style={{
+                        flexDirection: "row",
+                        justifyContent: "space-between",
+                      }}
+                    >
+                      <Text> {attendedEvents.length} events</Text>
+                      <Text>Hide </Text>
+                    </View>
                   </Pressable>
                   <ScrollView style={styles.eventListScroller}>
                     {attendedEvents.map((event) => {
@@ -226,7 +257,7 @@ const styles = StyleSheet.create({
   firstRowContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    marginBottom: 25,
+    marginBottom: 15,
   },
   middlePartContainer: {
     flexDirection: "row",
