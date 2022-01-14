@@ -27,14 +27,14 @@ export default function Chat() {
   let username = user.username;
   let title = event.title;
 
-  getHistory(title)
-    .then(({ data }) => {
-      setMessages([...data.messages]);
-    })
-    .catch((err) => {
-      console.dir(err);
-    });
   useEffect(() => {
+    getHistory(title)
+      .then(({ data }) => {
+        setMessages([...data.messages]);
+      })
+      .catch((err) => {
+        console.dir(err);
+      });
     if (user.username !== "" && event.title !== "") {
       socket.emit("joinRoom", { username, title });
     } else {
@@ -53,7 +53,7 @@ export default function Chat() {
       });
       setMessages([...temp]);
     });
-  }, [setMessages]);
+  }, [title, setMessages]);
 
   const sendData = () => {
     if (messageBody !== "") {
