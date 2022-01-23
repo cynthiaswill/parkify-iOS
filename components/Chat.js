@@ -187,7 +187,7 @@ const styles = StyleSheet.create({
     marginLeft: 0,
     maxWidth: 250,
     paddingLeft: 5,
-    overflow: "hidden",
+    borderRadius: 5,
     flexDirection: "column",
     marginVertical: 5,
   },
@@ -202,6 +202,7 @@ const styles = StyleSheet.create({
     maxWidth: 250,
     paddingRight: 5,
     marginVertical: 5,
+    borderRadius: 5,
   },
   messageInnerRight: {
     flexDirection: "row",
